@@ -108,7 +108,7 @@ defineProps({
                                                 </td>
                                                 <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                     {{
-                                                        student.created_at_formatted
+                                                        student.created_at
                                                     }}
                                                 </td>
 
