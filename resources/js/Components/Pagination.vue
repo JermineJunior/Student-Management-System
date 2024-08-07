@@ -1,23 +1,80 @@
+<script setup>
+import { router } from "@inertiajs/vue3";
+
+defineProps({
+    data: {
+        type: Object,
+    },
+});
+
+const updatePageNumber = (link) => {
+    let pageNumber = link.url.split("=")[1];
+
+    router.visit(`/students?&page=${pageNumber}`, {
+        preserveScroll: true,
+    });
+};
+</script>
+
 <template>
-    <div v-if="links.length >= 4">
-        <div class="flex flex-wrap -mb-1">
-            <div v-for="(link, key) in links">
-                <div v-if="link.url === null" :key="key"
-                    class="mb-1 mr-1 px-4 py-3 text-gray-400 text-sm leading-4 border rounded" v-html="link.label" />
-                <Link v-else :key="`link-${key}`"
-                    class="mb-1 mr-1 px-4 py-3 focus:text-indigo-500 text-sm leading-4 hover:bg-white border focus:border-indigo-500 rounded"
-                    :class="{ 'bg-white': link.active }" :href="link.url" v-html="link.label" />
+    <div class="max-w-7xl mx-auto py-6">
+        <div class="max-w-none mx-auto">
+            <div class="bg-white overflow-hidden shadow sm:rounded-lg">
+                <div
+                    class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+                >
+                    <div class="flex-1 flex justify-between sm:hidden" />
+                    <div
+                        class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between"
+                    >
+                        <div>
+                            <p class="text-sm text-gray-700">
+                                Showing
+                                <!-- space -->
+                                <span class="font-medium">{{
+                                    data.meta.from
+                                }}</span>
+                                <!-- space -->
+                                to
+                                <!-- space -->
+                                <span class="font-medium">{{
+                                    data.meta.to
+                                }}</span>
+                                <!-- space -->
+                                of
+                                <!-- space -->
+                                <span class="font-medium">{{
+                                    data.meta.total
+                                }}</span>
+                                <!-- space -->
+                                results
+                            </p>
+                        </div>
+                        <div>
+                            <nav
+                                class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+                                aria-label="Pagination"
+                            >
+                                <button
+                                    v-for="link in data.meta.links"
+                                    :key="link.url"
+                                    @click.prevent="updatePageNumber(link)"
+                                    :disabled="link.active || !link.url"
+                                    class="relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                                    :class="{
+                                        'z-10 bg-indigo-50 border-indigo-500 text-indigo-600':
+                                            link.active,
+                                        'bg-white border-gray-300 text-gray-500 hover:bg-gray-50':
+                                            !link.active,
+                                    }"
+                                >
+                                    <span v-html="link.label"></span>
+                                </button>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
-
-<script setup>
-import { Link } from '@inertiajs/vue3'
-
-defineProps({
-    links: {
-        type: Array,
-    }
-})
-</script>
