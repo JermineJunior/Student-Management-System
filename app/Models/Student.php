@@ -22,4 +22,9 @@ class Student extends Model
     {
         return $this->belongsTo(Section::class);
     }
+
+    public function path(): string
+    {
+        return '/students/' . $this->id;
+    }
 }
