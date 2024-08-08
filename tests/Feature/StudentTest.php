@@ -35,4 +35,13 @@ describe('student crud', function () {
         $response->assertSee($student->name);
         $response->assertSee($student->email);
     });
+
+    test('authenticated users can see the create student page', function () {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get('/students/create');
+
+        $response->assertOk();
+        $response->assertStatus(200);
+    });
 });
