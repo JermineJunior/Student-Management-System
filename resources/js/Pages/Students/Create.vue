@@ -32,7 +32,9 @@ const getSections = (classId) => {
         });
 }
 
-const submit = () => { };
+const submit = () => {
+    form.post(route('students.store'));
+};
 </script>
 
 <template>
@@ -67,7 +69,7 @@ const submit = () => { };
                                             :class="{
                                                 'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
                                                     form.errors.name,
-                                            }" />
+                                            }" required />
                                         <InputError class="mt-2" :message="form.errors.name" />
                                     </div>
 
@@ -79,7 +81,7 @@ const submit = () => { };
                                             :class="{
                                                 'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
                                                     form.errors.email,
-                                            }" />
+                                            }" required />
                                         <InputError class="mt-2" :message="form.errors.email" />
                                     </div>
 
@@ -90,7 +92,7 @@ const submit = () => { };
                                             :class="{
                                                 'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
                                                     form.errors.class_id,
-                                            }">
+                                            }" required>
                                             <option value="">
                                                 Select a Class
                                             </option>
@@ -109,11 +111,11 @@ const submit = () => { };
                                             :class="{
                                                 'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
                                                     form.errors.section_id,
-                                            }">
+                                            }" required>
                                             <option value="">
                                                 Select a Section
                                             </option>
-                                            <option v-for="section in sections.data" :key="section.id"  :value="section.id">
+                                            <option v-for="section in sections.data" :key="section.id" :value="section.id">
                                                 {{ section.name }}
                                             </option>
                                         </select>
