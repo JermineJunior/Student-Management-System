@@ -13,12 +13,25 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $students = StudentResource::collection(Student::paginate(10));
+        $studentQuery = Student::query();
+        //search in the students table for the name
+        $this->applySearch($studentQuery, request()->search);
+        $students = StudentResource::collection(
+            $studentQuery->paginate(10)
+        );
         return inertia('Students/Index', [
             'students' => $students,
+            'search'   => request()->search ?? ''
         ]);
     }
-
+    protected function applySearch($query, $search)
+    {
+        //return results filtered by name
+        $query->when($search, function ($query, $search) {
+            $query->where('name', 'like', '%' . $search . '%')
+            ->orWhere('email', 'like', '%'. $search . '%');
+        });
+    }
     public function create()
     {
         $classes = ClassesResource::collection(Classes::all());

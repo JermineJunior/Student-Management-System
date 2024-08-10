@@ -2,18 +2,55 @@
 import MagnifyingGlass from "@/Components/Icons/MagnifyingGlass.vue";
 import Pagination from "@/Components/Pagination.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link, useForm } from "@inertiajs/vue3";
+import { Head, Link, router, useForm,usePage } from "@inertiajs/vue3";
+import { watch, ref, computed } from "vue";
 
 defineProps({
     students: {
         type: Object,
     },
+    search: {
+        type:String,
+    }
 });
+//capture the user`s search value
+const search = ref(usePage().props.search),
+    pageNumber = ref(1);
+let studentsUrl = computed(() => {
+    //build the current url
+    let url = new URL(route('students.index'));
+    /**
+     * reseating the page number to view the
+     *  returned search data
+     */
+    url.searchParams.append("page", pageNumber.value);
+    //append the user search as a param to the url 
+    if (search.value) {
+        url.searchParams.append("search", search.value);
+    }
+    return url;
+});
+
+//keep track of the changes in the url 
+watch(
+    () => studentsUrl.value,
+    //capture and visit the new url on change
+    (updatedUrl) => {
+        router.visit(updatedUrl, {
+            preserveScroll: true,
+            preserveState: true,
+            replace: true
+        })
+    });
+
+//setup student deletion
 const deleteForm = useForm({});
 
 const deleteStudent = (studentId) => {
     if (confirm('Are You sure you want to delete this student?')) {
-        deleteForm.delete(route('students.destroy', studentId))
+        deleteForm.delete(route('students.destroy', studentId), {
+            preserveScroll: true,
+        })
     }
 }
 </script>
@@ -55,7 +92,7 @@ const deleteStudent = (studentId) => {
                                 <MagnifyingGlass />
                             </div>
 
-                            <input type="text" placeholder="Search students data..." id="search"
+                            <input type="text" v-model="search" placeholder="Search students data..." id="search"
                                 class="block py-2 pl-10 text-gray-900 border-0 rounded-lg ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                         </div>
                     </div>
@@ -64,6 +101,7 @@ const deleteStudent = (studentId) => {
                         <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                                 <div class="relative overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+
                                     <table class="min-w-full divide-y divide-gray-300">
                                         <thead class="bg-gray-50">
                                             <tr>
@@ -94,6 +132,12 @@ const deleteStudent = (studentId) => {
                                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6" />
                                             </tr>
                                         </thead>
+                                        <!-- if search returns 0 result -->
+                                        <div v-show="students.length === 0"
+                                            class="px-3 py-2 m-4 bg-yellow-400 rounded text-slate-100">
+                                            <p class="text-xl italic font-bold">No results found!</p>
+                                        </div>
+                                        <!-- endif search returns 0 result -->
                                         <tbody class="bg-white divide-y divide-gray-200">
                                             <tr v-for="student in     students.data    " :key="student.id">
                                                 <td
