@@ -88,7 +88,7 @@ defineProps({
                                             </tr>
                                         </thead>
                                         <tbody class="bg-white divide-y divide-gray-200">
-                                            <tr v-for="student in students.data" :key="student.id">
+                                            <tr v-for="student in     students.data    " :key="student.id">
                                                 <td
                                                     class="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
                                                     {{ student.id }}
@@ -114,12 +114,15 @@ defineProps({
 
                                                 <td
                                                     class="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-                                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                                                        Edit
-                                                    </a>
-                                                    <button class="ml-2 text-indigo-600 hover:text-indigo-900">
-                                                        Delete
-                                                    </button>
+                                                    <Link :href="route('students.edit', student.id)"
+                                                        class="text-indigo-600 hover:text-indigo-900">
+                                                    Edit
+                                                    </Link>
+                                                    <Link as="button" method="delete"
+                                                        :href="route('students.destroy', student.id)"
+                                                        class="ml-2 text-indigo-600 hover:text-indigo-900">
+                                                    Delete
+                                                    </Link>
                                                 </td>
                                             </tr>
                                         </tbody>
