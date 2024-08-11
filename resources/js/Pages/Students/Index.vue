@@ -2,7 +2,7 @@
 import MagnifyingGlass from "@/Components/Icons/MagnifyingGlass.vue";
 import Pagination from "@/Components/Pagination.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link, router, useForm,usePage } from "@inertiajs/vue3";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/vue3";
 import { watch, ref, computed } from "vue";
 
 defineProps({
@@ -10,7 +10,7 @@ defineProps({
         type: Object,
     },
     search: {
-        type:String,
+        type: String,
     }
 });
 //capture the user`s search value
@@ -24,14 +24,14 @@ let studentsUrl = computed(() => {
      *  returned search data
      */
     url.searchParams.append("page", pageNumber.value);
-    //append the user search as a param to the url 
+    //append the user search as a param to the url
     if (search.value) {
         url.searchParams.append("search", search.value);
     }
     return url;
 });
 
-//keep track of the changes in the url 
+//keep track of the changes in the url
 watch(
     () => studentsUrl.value,
     //capture and visit the new url on change
@@ -42,6 +42,18 @@ watch(
             replace: true
         })
     });
+//when the user searches we return the results from the first page
+watch(() => search,
+    (value) => {
+        if (value) {
+            pageNumber.value = 1
+        }
+    }
+)
+
+const updatedPageNumber = (link) => {
+    pageNumber.value = link.url.split("=")[1]
+}
 
 //setup student deletion
 const deleteForm = useForm({});
@@ -178,7 +190,7 @@ const deleteStudent = (studentId) => {
                                         </tbody>
                                     </table>
                                 </div>
-                                <Pagination :data="students" />
+                                <Pagination :data="students" :updatedPageNumber="updatedPageNumber" />
                             </div>
                         </div>
                     </div>
