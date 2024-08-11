@@ -13,6 +13,7 @@ defineProps({
         type: String,
     }
 });
+/**Start Search functionality */
 //capture the user`s search value
 const search = ref(usePage().props.search),
     pageNumber = ref(1);
@@ -54,7 +55,9 @@ watch(() => search,
 const updatedPageNumber = (link) => {
     pageNumber.value = link.url.split("=")[1]
 }
-
+//search input clear
+const clearSearch = () => search.value = ''
+/**End Search functionality */
 //setup student deletion
 const deleteForm = useForm({});
 
@@ -97,7 +100,7 @@ const deleteStudent = (studentId) => {
                         </div>
                     </div>
 
-                    <div class="flex flex-col justify-between mt-6 sm:flex-row">
+                    <div class="flex flex-col mt-6 sm:flex-row">
                         <div class="relative col-span-3 text-sm text-gray-800">
                             <div
                                 class="absolute top-0 bottom-0 left-0 flex items-center pl-2 text-gray-500 pointer-events-none">
@@ -107,6 +110,7 @@ const deleteStudent = (studentId) => {
                             <input type="text" v-model="search" placeholder="Search students data..." id="search"
                                 class="block py-2 pl-10 text-gray-900 border-0 rounded-lg ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                         </div>
+                        <button @click="clearSearch" class="mx-3 text-sm text-gray-600 underline">reset</button>
                     </div>
 
                     <div class="flex flex-col mt-8">
