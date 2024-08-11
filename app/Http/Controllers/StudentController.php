@@ -2,36 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
+use App\Models\Classes;
+use Illuminate\Http\Request;
+use App\Http\Resources\ClassesResource;
+use App\Http\Resources\StudentResource;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
-use App\Http\Resources\ClassesResource;
-use App\Models\Classes;
-use App\Models\Student;
-use App\Http\Resources\StudentResource;
 
 class StudentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $studentQuery = Student::query();
-        //search in the students table for the name
-        $this->applySearch($studentQuery, request()->search);
-        $students = StudentResource::collection(
-            $studentQuery->paginate(10)
-        );
+        $studentQuery = Student::search($request);
+        $classes = ClassesResource::collection(Classes::all());
+
         return inertia('Students/Index', [
-            'students' => $students,
-            'search'   => request()->search ?? ''
+            'students' => StudentResource::collection(
+                $studentQuery->paginate(10)
+            ),
+            'classes' => $classes,
+            'search' => request('search') ?? ''
         ]);
     }
-    protected function applySearch($query, $search)
-    {
-        //return results filtered by name
-        $query->when($search, function ($query, $search) {
-            $query->where('name', 'like', '%' . $search . '%')
-            ->orWhere('email', 'like', '%'. $search . '%');
-        });
-    }
+
     public function create()
     {
         $classes = ClassesResource::collection(Classes::all());

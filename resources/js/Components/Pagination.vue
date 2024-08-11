@@ -5,7 +5,7 @@ defineProps({
     data: {
         type: Object,
     },
-    updatedPageNumber: {
+    pageNumberUpdated: {
         type: Function,
         required: true
     }
@@ -53,7 +53,7 @@ const updatePageNumber = (link) => {
                         <div>
                             <nav class="relative z-0 inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
                                 <button v-for="(link, index) in data.meta.links" :key="index"
-                                    @click.prevent="updatedPageNumber(link)" :disabled="link.active || !link.url"
+                                    @click.prevent="pageNumberUpdated(link)" :disabled="link.active || !link.url"
                                     class="relative inline-flex items-center px-4 py-2 text-sm font-medium border" :class="{
                                         'z-10 bg-indigo-50 border-indigo-500 text-indigo-600':
                                             link.active,
