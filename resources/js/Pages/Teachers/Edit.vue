@@ -1,32 +1,36 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link, useForm } from "@inertiajs/vue3";
+import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
+import { watch, ref, onMounted } from "vue";
+import axios from "axios";
 import InputError from "@/Components/InputError.vue";
 
+const teacher = usePage().props.teacher;
 
 const form = useForm({
-  name: "",
-  email: "",
-  phone: "",
-  date_of_recruit: "",
-  base_salary: "",
-  specialty: ""
+  name: teacher.data.name,
+  email: teacher.data.email,
+  phone: teacher.data.phone,
+  recruitedOn: teacher.data.recruitedOn,
+  salary: teacher.data.salary,
+  specialty: teacher.data.specialty
 });
 
-
 const submit = () => {
-  form.post(route('teachers.store'));
+    form.put(route("teachers.update", teacher.data.id), {
+        preserveScroll: true,
+    });
 };
 </script>
 
 <template>
 
-  <Head title="Add teachers" />
+  <Head title="teachers" />
 
   <AuthenticatedLayout>
     <template #header>
       <h2 class="text-xl font-semibold leading-tight text-gray-800">
-        teachers [Add]
+        Teachers
       </h2>
     </template>
     <div class="py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -37,37 +41,37 @@ const submit = () => {
               <div class="px-4 py-6 space-y-6 bg-white sm:p-6">
                 <div>
                   <h3 class="text-lg font-medium leading-6 text-gray-900">
-                    teacher Information
+                    Teacher Information
                   </h3>
                   <p class="mt-1 text-sm text-gray-500">
-                    Use this form to create a new teacher.
+                    Use this form to modify the teachers details.
                   </p>
                 </div>
 
                 <div class="grid grid-cols-6 gap-6">
-                  <!-- name -->
                   <div class="col-span-6 sm:col-span-3">
                     <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
                     <input v-model="form.name" type="text" id="name"
                       class="block px-3 py-2 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      placeholder="Ali Kareem" :class="{
+                      :class="{
                         'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
                           form.errors.name,
-                      }" required />
+                      }" />
                     <InputError class="mt-2" :message="form.errors.name" />
                   </div>
-                  <!-- email -->
+
                   <div class="col-span-6 sm:col-span-3">
                     <label for="email" class="block text-sm font-medium text-gray-700">Email
                       Address</label>
                     <input v-model="form.email" type="email" id="email" autocomplete="email"
                       class="block px-3 py-2 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      placeholder="example@email.com" :class="{
+                      :class="{
                         'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
                           form.errors.email,
-                      }" required />
+                      }" />
                     <InputError class="mt-2" :message="form.errors.email" />
                   </div>
+
                   <!-- phone -->
                   <div class="col-span-6 sm:col-span-3">
                     <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
@@ -81,25 +85,25 @@ const submit = () => {
                   </div>
                   <!-- dateOfRecruit -->
                   <div class="col-span-6 sm:col-span-3">
-                    <label for="date_of_recruit" class="block text-sm font-medium text-gray-700">Date of recruit</label>
-                    <input v-model="form.date_of_recruit" type="date" id="date_of_recruit"
+                    <label for="recruitedOn" class="block text-sm font-medium text-gray-700">Date of recruit</label>
+                    <input v-model="form.recruitedOn" type="date" id="recruitedOn"
                       class="block px-3 py-2 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       :class="{
                         'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
-                          form.errors.date_of_recruit,
+                          form.errors.recruitedOn,
                       }" required />
-                    <InputError class="mt-2" :message="form.errors.date_of_recruit" />
+                    <InputError class="mt-2" :message="form.errors.recruitedOn" />
                   </div>
                   <!-- salary -->
                   <div class="col-span-6 sm:col-span-3">
-                    <label for="base_salary" class="block text-sm font-medium text-gray-700">Salary</label>
-                    <input v-model="form.base_salary" type="text" id="base_salary"
+                    <label for="salary" class="block text-sm font-medium text-gray-700">Salary</label>
+                    <input v-model="form.salary" type="text" id="salary"
                       class="block px-3 py-2 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       placeholder="$40.000" :class="{
                         'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
-                          form.errors.base_salary,
+                          form.errors.salary,
                       }" required />
-                    <InputError class="mt-2" :message="form.errors.base_salary" />
+                    <InputError class="mt-2" :message="form.errors.salary" />
                   </div>
                   <!-- specialty -->
                   <div class="col-span-6 sm:col-span-3">

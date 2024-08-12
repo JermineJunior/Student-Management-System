@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateTeacherRequest;
+use App\Http\Requests\UpdateTeacherRequest;
 use App\Http\Resources\StudentResource;
 use App\Http\Resources\TeacherResource;
 use App\Models\Teacher;
@@ -38,5 +40,34 @@ class TeacherController extends Controller
   public function create()
   {
     return inertia('Teachers/Create');
+  }
+
+  public function store(CreateTeacherRequest $request)
+  {
+    Teacher::create($request->validated());
+
+    return redirect()->route('teachers.index');
+  }
+
+  public function edit(Teacher $teacher)
+  {
+    return inertia('Teachers/Edit', [
+      "teacher" => TeacherResource::make($teacher)
+    ]);
+  }
+
+  public function update(UpdateTeacherRequest $request, Teacher $teacher)
+  {
+    dd(request()->all());
+    $teacher->update($request->validate());
+
+    return to_route('teachers.index');
+  }
+
+  public function destroy(Teacher $teacher)
+  {
+    $teacher->delete();
+
+    return to_route('teachers.index');
   }
 }

@@ -22,7 +22,7 @@ class TeacherFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'base_salary' => fake()->numberBetween(20000, 80000),
             'date_of_recruit' => fake()->date(),
-            'specialty' => fake()->jobTitle()
+            'specialty' => fake()->randomElement(['Arabic','English','Math','Science'])
         ];
     }
 }
