@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,7 +34,9 @@ Route::middleware("auth")->group(function () {
     );
 
     // Student Routes
-    Route::resource("/students" , StudentController::class);
+    Route::resource("/students", StudentController::class);
+    //Teacher Routes
+    Route::resource('/teachers', TeacherController::class);
 });
 //
 
