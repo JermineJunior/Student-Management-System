@@ -35,4 +35,70 @@ describe('Teachers Crud', function () {
         $response->assertOk();
         $response->assertStatus(200);
     });
+
+    test('authenticated users can add teachers', function () {
+        $user = User::factory()->create();
+
+        $teacher = [
+            'name' => 'Ahmed',
+            'email' => 'ahmed@example.com',
+            'phone' => '01234567890',
+            'date_of_recruit' => now(),
+            'base_salary'  => 20000,
+            'specialty' => 'Arabic'
+        ];
+        $response = $this->actingAs($user)->post('/teachers', $teacher);
+        $response
+            ->assertSessionHasNoErrors()
+            ->assertRedirect('/teachers');
+        $this->assertDatabaseHas('teachers', [
+            'name' => 'Ahmed'
+        ]);
+    });
+
+    test('authenticated users can modify teachers details', function () {
+        $user = User::factory()->create();
+        $teacher = Teacher::factory()->create([
+            'name' => 'Ali Omer',
+            'email' => 'ali@example.com',
+            'phone' => '01234567890',
+            'date_of_recruit' => now(),
+            'base_salary'  => 40000,
+            'specialty' => 'Arabic'
+        ]);
+        $newTeacher = [
+            'name' => 'Ali Adil',
+            'email' => 'ali.eng@example.com',
+            'phone' => '01234567890',
+            'date_of_recruit' => now(),
+            'base_salary'  => 40000,
+            'specialty' => 'Arabic'
+        ];
+        $response = $this->actingAs($user)->put('/teachers/' . $teacher->id, $newTeacher);
+        $response
+            ->assertSessionHasNoErrors()
+            ->assertRedirect('/teachers');
+        $this->assertDatabaseHas('teachers', [
+            'email' => 'ali.eng@example.com'
+        ]);
+    });
+
+    test('teachers can be deleted', function () {
+        $user = User::factory()->create();
+        $teacher = [
+            'id' => 1,
+            'name' => 'Ahmed',
+            'email' => 'ahmed@example.com',
+            'phone' => '01234567890',
+            'date_of_recruit' => now(),
+            'base_salary'  => 20000,
+            'specialty' => 'Arabic'
+        ];
+        $response = $this->actingAs($user)->post('/teachers', $teacher);
+
+        $deleteResponse = $this->actingAs($user)->delete('/teachers/' . $teacher['id'], $teacher);
+        $response
+            ->assertSessionHasNoErrors()
+            ->assertRedirect('/teachers');
+    });
 });
