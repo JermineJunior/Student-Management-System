@@ -58,10 +58,9 @@ class TeacherController extends Controller
 
   public function update(UpdateTeacherRequest $request, Teacher $teacher)
   {
-    dd(request()->all());
-    $teacher->update($request->validate());
+    $teacher->update($request->validated());
 
-    return to_route('teachers.index');
+    return redirect()->route('teachers.index');
   }
 
   public function destroy(Teacher $teacher)

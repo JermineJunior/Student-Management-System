@@ -1,8 +1,6 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
-import { watch, ref, onMounted } from "vue";
-import axios from "axios";
 import InputError from "@/Components/InputError.vue";
 
 const teacher = usePage().props.teacher;
@@ -11,15 +9,15 @@ const form = useForm({
   name: teacher.data.name,
   email: teacher.data.email,
   phone: teacher.data.phone,
-  recruitedOn: teacher.data.recruitedOn,
-  salary: teacher.data.salary,
+  date_of_recruit: teacher.data.date_of_recruit,
+  base_salary: teacher.data.base_salary,
   specialty: teacher.data.specialty
 });
 
 const submit = () => {
-    form.put(route("teachers.update", teacher.data.id), {
-        preserveScroll: true,
-    });
+  form.put(`/teachers/${teacher.data.id}`), {
+    preserveScroll: true,
+  }
 };
 </script>
 
@@ -85,25 +83,25 @@ const submit = () => {
                   </div>
                   <!-- dateOfRecruit -->
                   <div class="col-span-6 sm:col-span-3">
-                    <label for="recruitedOn" class="block text-sm font-medium text-gray-700">Date of recruit</label>
-                    <input v-model="form.recruitedOn" type="date" id="recruitedOn"
+                    <label for="date_of_recruit" class="block text-sm font-medium text-gray-700">Date of recruit</label>
+                    <input v-model="form.date_of_recruit" type="date" id="date_of_recruit" name="date_of_recruit"
                       class="block px-3 py-2 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       :class="{
                         'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
-                          form.errors.recruitedOn,
+                          form.errors.date_of_recruit,
                       }" required />
-                    <InputError class="mt-2" :message="form.errors.recruitedOn" />
+                    <InputError class="mt-2" :message="form.errors.date_of_recruit" />
                   </div>
-                  <!-- salary -->
+                  <!-- base_salary -->
                   <div class="col-span-6 sm:col-span-3">
-                    <label for="salary" class="block text-sm font-medium text-gray-700">Salary</label>
-                    <input v-model="form.salary" type="text" id="salary"
+                    <label for="base_salary" class="block text-sm font-medium text-gray-700">Salary</label>
+                    <input v-model="form.base_salary" type="text" id="base_salary" name="base_base_salary"
                       class="block px-3 py-2 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       placeholder="$40.000" :class="{
                         'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
-                          form.errors.salary,
+                          form.errors.base_salary,
                       }" required />
-                    <InputError class="mt-2" :message="form.errors.salary" />
+                    <InputError class="mt-2" :message="form.errors.base_salary" />
                   </div>
                   <!-- specialty -->
                   <div class="col-span-6 sm:col-span-3">
