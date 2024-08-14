@@ -129,7 +129,7 @@ const deleteTeacher = (id) => {
                     <thead class="bg-gray-50">
                       <tr>
                         <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
-                          ID
+                          No
                         </th>
                         <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
                           Name
@@ -151,10 +151,10 @@ const deleteTeacher = (id) => {
                     </thead>
 
                     <tbody class="bg-white divide-y divide-gray-200">
-                      <tr v-for="teacher in teachers.data" :key="teacher.id"
+                      <tr v-for="(teacher, index) in teachers.data" :key="teacher.id"
                         class="transition-colors duration-300 ease-in-out hover:bg-gray-200">
                         <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
-                          {{ teacher.id }}
+                          {{ index + 1 }}
                         </td>
                         <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
                           {{ teacher.name }}

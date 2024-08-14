@@ -145,7 +145,7 @@ const deleteStudent = (id) => {
                                             <tr>
                                                 <th scope="col"
                                                     class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
-                                                    ID
+                                                    NO
                                                 </th>
                                                 <th scope="col"
                                                     class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
@@ -177,11 +177,11 @@ const deleteStudent = (id) => {
                                             </p>
                                         </div>
                                         <tbody class="bg-white divide-y divide-gray-200">
-                                            <tr v-for="student in students.data" :key="student.id"
+                                            <tr v-for="(student, index) in students.data" :key="student.id"
                                                 class="transition-colors duration-300 ease-in-out hover:bg-gray-200">
                                                 <td
                                                     class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
-                                                    {{ student.id }}
+                                                    {{ index + 1 }}
                                                 </td>
                                                 <td
                                                     class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
@@ -198,24 +198,23 @@ const deleteStudent = (id) => {
                                                 </td>
                                                 <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                     {{
-                                                    student.created_at_formatted
+                                                        student.created_at_formatted
                                                     }}
                                                 </td>
 
                                                 <td
                                                     class="relative py-4 pr-4 pl-3 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-                                                    <Link :href="
-                                                            route(
-                                                                'students.edit',
-                                                                student.id,
-                                                            )
+                                                    <Link :href="route(
+                                                        'students.edit',
+                                                        student.id,
+                                                    )
                                                         " class="text-indigo-600 hover:text-indigo-900">
                                                     Edit
                                                     </Link>
                                                     <button @click="
-                                                            deleteStudent(
-                                                                student.id,
-                                                            )
+                                                        deleteStudent(
+                                                            student.id,
+                                                        )
                                                         " class="ml-2 text-indigo-600 hover:text-indigo-900">
                                                         Delete
                                                     </button>

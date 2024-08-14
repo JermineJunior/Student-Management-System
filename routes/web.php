@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
@@ -37,6 +38,8 @@ Route::middleware("auth")->group(function () {
     Route::resource("/students", StudentController::class);
     //Teacher Routes
     Route::resource('/teachers', TeacherController::class);
+    //Classes Route
+    Route::resource('/classes', ClassesController::class)->except(['show', 'create']);
 });
 //
 
