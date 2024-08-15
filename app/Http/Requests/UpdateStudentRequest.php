@@ -25,7 +25,6 @@ class UpdateStudentRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:students,email,' . $this->student->id],
             'class_id' => ['required', 'exists:classes,id'],
-            'section_id' => ['required', 'exists:sections,id']
         ];
     }
     public function attributes()
@@ -34,7 +33,6 @@ class UpdateStudentRequest extends FormRequest
             'name' => 'Student Name',
             'email' => 'Student Email',
             'class_id' => 'class',
-            'section_id' => 'section'
 
         ];
     }

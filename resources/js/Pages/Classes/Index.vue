@@ -94,7 +94,7 @@ const deleteClass = (id) => {
                           {{ Class.addedOn }}
                         </td>
                         <td class="relative py-4 pr-4 pl-3 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-                          <Link :as="button" class="text-indigo-600 hover:text-indigo-900">
+                          <Link :href="route('classes.edit', Class.id)" class="text-indigo-600 hover:text-indigo-900">
                           Edit
                           </Link>
                           <button @click="

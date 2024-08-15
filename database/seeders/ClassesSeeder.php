@@ -22,25 +22,16 @@ class ClassesSeeder extends Seeder
             ->sequence(fn($sequence) => [
                 'name' => 'Class' . $sequence->index +
                     1
-            ])->has(
-                Section::factory()
-                    ->count(2)
-                    ->state(
-                        new Sequence(
-                            ['name' => 'Section A'],
-                            ['name' => 'Section B'],
-                        )
-                    )
+            ])
                     ->has(
                         Student::factory()
                             ->count(5)
                             ->state(
-                                function (array $attributes, Section $section) {
-                                    return ['class_id' => $section->class_id];
+                                function (array $attributes, Classes $class) {
+                                    return ['class_id' => $class->id];
                                 }
                             )
                     )
-            )
             ->create();
     }
 }

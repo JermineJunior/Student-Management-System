@@ -24,6 +24,11 @@ class ClassesController extends Controller
         return redirect()->route('classes.index');
     }
 
+    public function edit(Classes $class)
+    {
+        $Class =  ClassesResource::make($class);
+        return inertia('Classes/Edit', ['Class' => $Class]);
+    }
     public function destroy(Classes $class)
     {
         $class->delete();

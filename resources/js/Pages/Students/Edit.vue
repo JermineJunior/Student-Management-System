@@ -11,32 +11,16 @@ defineProps({
     },
 });
 
-let sections = ref({});
+
 const student = usePage().props.student;
 
 const form = useForm({
     name: student.data.name,
     email: student.data.email,
     class: student.data.class.id,
-    section: student.data.section.id,
 });
 
-watch(
-    () => form.class,
-    (newValue) => {
-        getSections(newValue);
-    }
-);
 
-onMounted(() => {
-    getSections(student.data.class.id);
-});
-
-const getSections = (class_id) => {
-    axios.get("/api/sections?class_id=" + class_id).then((response) => {
-        sections.value = response.data;
-    });
-};
 
 const submit = () => {
     form.put(route("students.update", student.data.id), {
@@ -111,24 +95,6 @@ const submit = () => {
                                         <InputError class="mt-2" :message="form.errors.class" />
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="section"
-                                            class="block text-sm font-medium text-gray-700">Section</label>
-                                        <select v-model="form.section" id="section"
-                                            class="block px-3 py-2 mt-1 w-full bg-white rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                            :class="{
-                                                'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
-                                                    form.errors.section,
-                                            }">
-                                            <option value="">
-                                                Select a Section
-                                            </option>
-                                            <option v-for="section in sections.data" :value="section.id">
-                                                {{ section.name }}
-                                            </option>
-                                        </select>
-                                        <InputError class="mt-2" :message="form.errors.section" />
-                                    </div>
                                 </div>
                             </div>
                             <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
