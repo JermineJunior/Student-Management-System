@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User;
 use App\Models\Student;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -15,31 +14,26 @@ describe('student crud', function () {
     });
 
     test('authenticated users can view the Index page', function () {
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->get('/students');
+        $response = $this->signIn()->get('/students');
 
         $response->assertOk();
         $response->assertStatus(200);
     });
 
     test('users can view student details in the index page', function () {
-        $user = User::factory()->create();
-
         $this->seed();
 
         $student = Student::find(1);
 
-        $response = $this->actingAs($user)->get('/students');
+        $response = $this->signIn()->get('/students');
 
         $response->assertSee($student->name);
         $response->assertSee($student->email);
     });
 
     test('authenticated users can see the create student page', function () {
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->get('/students/create');
+       
+        $response = $this->SignIn()->get('/students/create');
 
         $response->assertOk();
         $response->assertStatus(200);

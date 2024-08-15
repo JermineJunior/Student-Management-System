@@ -11,34 +11,26 @@ describe('Teachers Crud', function () {
     });
 
     test('authenticated users can view the Index page', function () {
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->get('/teachers');
+        $response = $this->signIn()->get('/teachers');
 
         $response->assertOk();
         $response->assertStatus(200);
     });
     test('authenticated users can view teachers details', function () {
-        $user = User::factory()->create();
-
         $teacher = Teacher::factory()->create();
-        $response = $this->actingAs($user)->get('/teachers');
+        $response = $this->signIn()->get('/teachers');
 
         $response->assertOk();
         $response->assertSee($teacher->name);
     });
     test('authenticated users can view the create page', function () {
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->get('/teachers/create');
+        $response = $this->signIn()->get('/teachers/create');
 
         $response->assertOk();
         $response->assertStatus(200);
     });
 
     test('authenticated users can add teachers', function () {
-        $user = User::factory()->create();
-
         $teacher = [
             'name' => 'Ahmed',
             'email' => 'ahmed@example.com',
@@ -47,7 +39,7 @@ describe('Teachers Crud', function () {
             'base_salary'  => 20000,
             'specialty' => 'Arabic'
         ];
-        $response = $this->actingAs($user)->post('/teachers', $teacher);
+        $response = $this->signIn()->post('/teachers', $teacher);
         $response
             ->assertSessionHasNoErrors()
             ->assertRedirect('/teachers');
@@ -57,7 +49,6 @@ describe('Teachers Crud', function () {
     });
 
     test('authenticated users can modify teachers details', function () {
-        $user = User::factory()->create();
         $teacher = Teacher::factory()->create([
             'name' => 'Ali Omer',
             'email' => 'ali@example.com',
@@ -74,7 +65,7 @@ describe('Teachers Crud', function () {
             'base_salary'  => 40000,
             'specialty' => 'Arabic'
         ];
-        $response = $this->actingAs($user)->put('/teachers/' . $teacher->id, $newTeacher);
+        $response = $this->signIn()->put('/teachers/' . $teacher->id, $newTeacher);
         $response
             ->assertSessionHasNoErrors()
             ->assertRedirect('/teachers');
@@ -84,7 +75,6 @@ describe('Teachers Crud', function () {
     });
 
     test('teachers can be deleted', function () {
-        $user = User::factory()->create();
         $teacher = [
             'id' => 1,
             'name' => 'Ahmed',
@@ -94,9 +84,9 @@ describe('Teachers Crud', function () {
             'base_salary'  => 20000,
             'specialty' => 'Arabic'
         ];
-        $response = $this->actingAs($user)->post('/teachers', $teacher);
+        $response = $this->signIn()->post('/teachers', $teacher);
 
-        $deleteResponse = $this->actingAs($user)->delete('/teachers/' . $teacher['id'], $teacher);
+        $deleteResponse = $this->signIn()->delete('/teachers/' . $teacher['id'], $teacher);
         $response
             ->assertSessionHasNoErrors()
             ->assertRedirect('/teachers');
