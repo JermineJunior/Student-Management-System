@@ -75,20 +75,11 @@ describe('Teachers Crud', function () {
     });
 
     test('teachers can be deleted', function () {
-        $teacher = [
-            'id' => 1,
-            'name' => 'Ahmed',
-            'email' => 'ahmed@example.com',
-            'phone' => '01234567890',
-            'date_of_recruit' => now(),
-            'base_salary'  => 20000,
-            'specialty' => 'Arabic'
-        ];
-        $response = $this->signIn()->post('/teachers', $teacher);
-
-        $deleteResponse = $this->signIn()->delete('/teachers/' . $teacher['id'], $teacher);
-        $response
+        $teacher = Teacher::factory()->create();
+        $deleteResponse = $this->signIn()->delete('/teachers/' . $teacher['id'], $teacher->toArray());
+        $deleteResponse
             ->assertSessionHasNoErrors()
             ->assertRedirect('/teachers');
+        $this->assertDatabaseMissing('teachers', ['name' => $teacher->name]);
     });
 });
