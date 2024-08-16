@@ -157,6 +157,10 @@ const deleteStudent = (id) => {
                                                 </th>
                                                 <th scope="col"
                                                     class="px-3 py-3.5 text-sm font-semibold text-left text-gray-900">
+                                                    Parent
+                                                </th>
+                                                <th scope="col"
+                                                    class="px-3 py-3.5 text-sm font-semibold text-left text-gray-900">
                                                     Class
                                                 </th>
                                                 <th scope="col"
@@ -187,12 +191,15 @@ const deleteStudent = (id) => {
                                                     {{ student.email }}
                                                 </td>
                                                 <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                    {{ student.parent.name }}
+                                                </td>
+                                                <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                     {{ student.class.name }}
                                                 </td>
 
                                                 <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                     {{
-                                                    student.created_at_formatted
+                                                        student.created_at_formatted
                                                     }}
                                                 </td>
 

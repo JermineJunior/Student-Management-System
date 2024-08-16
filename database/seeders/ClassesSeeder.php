@@ -3,10 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Classes;
-use App\Models\Section;
 use App\Models\Student;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
 
@@ -25,7 +22,7 @@ class ClassesSeeder extends Seeder
             ])
             ->has(
                 Student::factory()
-                    ->count(5)
+                    ->count(30)
                     ->state(
                         function (array $attributes, Classes $class) {
                             return ['class_id' => $class->id];

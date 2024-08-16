@@ -3,10 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StudentResource extends JsonResource
+class ParentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,9 +18,8 @@ class StudentResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'class' => ClassesResource::make($this->whenLoaded('class')),
-            'parent' => ParentResource::make($this->whenLoaded('parent')),
-            'created_at_formatted' => $this->created_at->toFormattedDateString(),
+            'phone' => $this->phone,
+            'addedOn' => $this->created_at->toFormattedDateString()
         ];
     }
 }

@@ -1,8 +1,5 @@
 <?php
 
-use App\Models\Classes;
-use App\Models\Parents;
-use App\Models\Section;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('parents', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Parents::class, 'parent_id');
-            $table->foreignIdFor(Classes::class, 'class_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email');
+            $table->string('phone');
+            $table->string('address')->nullable();
+            $table->string('house_number')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('students');
+        Schema::dropIfExists('parents');
     }
 };

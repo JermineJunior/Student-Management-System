@@ -11,13 +11,18 @@ class Student extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'class_id'];
+    protected $fillable = ['name', 'email', 'class_id', 'parent_id'];
 
-    protected $with = ['class'];
+    protected $with = ['class', 'parent'];
 
     public function class()
     {
         return $this->belongsTo(Classes::class, 'class_id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Parents::class, 'parent_id');
     }
 
     public function scopeSearch(Builder $query, Request $request)

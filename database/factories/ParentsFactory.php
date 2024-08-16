@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Parents;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Student>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Parents>
  */
-class StudentFactory extends Factory
+class ParentsFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,9 +17,10 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            'parent_id' => Parents::factory()->create(),
             'name'  => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail
+            'email' => $this->faker->unique()->safeEmail,
+            'phone' => fake()->phoneNumber(),
+            'address' => fake()->address()
         ];
     }
 }
