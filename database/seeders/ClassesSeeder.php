@@ -20,18 +20,18 @@ class ClassesSeeder extends Seeder
         Classes::factory()
             ->count(10)
             ->sequence(fn($sequence) => [
-                'name' => 'Class' . $sequence->index +
+                'name' => 'ClassRoom ' . $sequence->index +
                     1
             ])
-                    ->has(
-                        Student::factory()
-                            ->count(5)
-                            ->state(
-                                function (array $attributes, Classes $class) {
-                                    return ['class_id' => $class->id];
-                                }
-                            )
+            ->has(
+                Student::factory()
+                    ->count(5)
+                    ->state(
+                        function (array $attributes, Classes $class) {
+                            return ['class_id' => $class->id];
+                        }
                     )
+            )
             ->create();
     }
 }

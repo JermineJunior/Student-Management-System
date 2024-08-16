@@ -7,6 +7,9 @@ defineProps({
   classes: {
     type: Object,
     required: true
+  },
+  students: {
+    type: Number,
   }
 });
 
@@ -24,12 +27,12 @@ const deleteClass = (id) => {
 
 <template>
 
-  <Head title="Students" />
+  <Head title="Classes" />
 
   <AuthenticatedLayout>
     <template #header>
       <h2 class="text-xl font-semibold leading-tight text-gray-800">
-        Students
+        Class Rooms
       </h2>
     </template>
     <div class="py-10 bg-gray-100">
@@ -42,6 +45,9 @@ const deleteClass = (id) => {
               </h1>
               <p class="mt-2 text-sm text-gray-700">
                 A list of all the Classes.
+              </p>
+              <p class="mt-2 text-sm text-gray-500">
+                {{ students }} Students total .
               </p>
             </div>
 

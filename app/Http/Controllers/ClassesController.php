@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ClassesResource;
 use App\Models\Classes;
-use Illuminate\Http\Request;
+use App\Models\Student;
 
 class ClassesController extends Controller
 {
     public function index()
     {
         $classes = ClassesResource::collection(Classes::all());
-
-        return inertia('Classes/Index', ['classes' => $classes]);
+        $studentCount = Student::count();
+        return inertia('Classes/Index', ['classes' => $classes, 'students' => $studentCount]);
     }
 
     public function store()
@@ -29,6 +29,17 @@ class ClassesController extends Controller
         $Class =  ClassesResource::make($class);
         return inertia('Classes/Edit', ['Class' => $Class]);
     }
+
+    public function update(Classes $class)
+    {
+        $validatedDate = request()->validate([
+            'name' => ['required', 'min:3']
+        ]);
+        $class->update($validatedDate);
+
+        return redirect()->route('classes.index');
+    }
+
     public function destroy(Classes $class)
     {
         $class->delete();
