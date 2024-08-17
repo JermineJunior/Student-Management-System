@@ -205,12 +205,9 @@ const deleteStudent = (id) => {
 
                                                 <td
                                                     class="relative py-4 pr-4 pl-3 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-                                                    <Link :href="route(
-                                                        'students.edit',
-                                                        student.id,
-                                                    )
+                                                    <Link :href="route('students.show', student.id)
                                                         " class="text-indigo-600 hover:text-indigo-900">
-                                                    Edit
+                                                    view
                                                     </Link>
                                                     <button @click="
                                                         deleteStudent(

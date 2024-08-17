@@ -19,6 +19,7 @@ class ParentResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
+            'address' => $this->address,
             'addedOn' => $this->created_at->toFormattedDateString()
         ];
     }

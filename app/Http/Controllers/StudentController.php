@@ -33,6 +33,15 @@ class StudentController extends Controller
             "classes" => $classes
         ]);
     }
+
+    public function show(Student $student)
+    {
+        return inertia(
+            'Students/Show',
+            ['student' => StudentResource::make($student)]
+        );
+    }
+
     public function store(StoreStudentRequest $request)
     {
         Student::create($request->validated());
