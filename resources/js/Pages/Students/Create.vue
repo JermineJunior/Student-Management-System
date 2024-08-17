@@ -15,7 +15,11 @@ const form = useForm({
     name: "",
     email: "",
     class_id: "",
-
+    parent_name: "",
+    parent_email: "",
+    parent_phone: "",
+    address: "",
+    house_number: ""
 });
 
 
@@ -25,6 +29,7 @@ const submit = () => {
 </script>
 
 <template>
+
     <Head title="Add Students" />
 
     <AuthenticatedLayout>
@@ -49,6 +54,7 @@ const submit = () => {
                                 </div>
 
                                 <div class="grid grid-cols-6 gap-6">
+                                    <!--  student name -->
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
                                         <input v-model="form.name" type="text" id="name"
@@ -59,7 +65,7 @@ const submit = () => {
                                             }" required />
                                         <InputError class="mt-2" :message="form.errors.name" />
                                     </div>
-
+                                    <!-- student email -->
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="email" class="block text-sm font-medium text-gray-700">Email
                                             Address</label>
@@ -71,9 +77,10 @@ const submit = () => {
                                             }" required />
                                         <InputError class="mt-2" :message="form.errors.email" />
                                     </div>
-
+                                    <!-- student class -->
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="class_id" class="block text-sm font-medium text-gray-700">Class</label>
+                                        <label for="class_id"
+                                            class="block text-sm font-medium text-gray-700">Class</label>
                                         <select v-model="form.class_id" id="class_id"
                                             class="block px-3 py-2 mt-1 w-full bg-white rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                             :class="{
@@ -89,7 +96,71 @@ const submit = () => {
                                         </select>
                                         <InputError class="mt-2" :message="form.errors.class_id" />
                                     </div>
-
+                                    <!-- parent name -->
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="parent_name" class="block text-sm font-medium text-gray-700">Parent
+                                            Name
+                                        </label>
+                                        <input v-model="form.parent_name" type="text" id="parent_name"
+                                            class="block px-3 py-2 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                            :class="{
+                                                'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
+                                                    form.errors.parent_name,
+                                            }" required />
+                                        <InputError class="mt-2" :message="form.errors.parent_name" />
+                                    </div>
+                                    <!-- parent phone -->
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="parent_phone" class="block text-sm font-medium text-gray-700">Parent
+                                            phone
+                                        </label>
+                                        <input type="tel" v-model="form.parent_phone" id="parent_phone" name="parent_phone"
+                                            class="block px-3 py-2 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                            :class="{
+                                                'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
+                                                    form.errors.parent_phone,
+                                            }" required />
+                                        <InputError class="mt-2" :message="form.errors.parent_phone" />
+                                    </div>
+                                    <!-- parent email -->
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="parent_email" class="block text-sm font-medium text-gray-700">Email
+                                            Address</label>
+                                        <input v-model="form.parent_email" type="email" id="parent_email"
+                                            autocomplete="parent_email"
+                                            class="block px-3 py-2 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                            :class="{
+                                                'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
+                                                    form.errors.parent_email,
+                                            }" required />
+                                        <InputError class="mt-2" :message="form.errors.parent_email" />
+                                    </div>
+                                    <!-- parent address -->
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="address" class="block text-sm font-medium text-gray-700">Parent
+                                            Address
+                                        </label>
+                                        <input type="text" v-model="form.address" id="address" name="address"
+                                            class="block px-3 py-2 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                            :class="{
+                                                'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
+                                                    form.errors.address,
+                                            }" required />
+                                        <InputError class="mt-2" :message="form.errors.address" />
+                                    </div>
+                                    <!-- parent house number -->
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label for="house_number" class="block text-sm font-medium text-gray-700">
+                                            House Number
+                                        </label>
+                                        <input type="number" v-model="form.house_number" id="house_number" name="house_number"
+                                            class="block px-3 py-2 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                            :class="{
+                                                'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
+                                                    form.errors.house_number,
+                                            }" required />
+                                        <InputError class="mt-2" :message="form.errors.house_number" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="px-4 py-3 text-right bg-gray-100 sm:px-6">

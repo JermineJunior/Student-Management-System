@@ -44,7 +44,23 @@ class StudentController extends Controller
 
     public function store(StoreStudentRequest $request)
     {
-        Student::create($request->validated());
+        //getting the parent data from the request 
+        $parent_data = [
+            'name' => request('parent_name'),
+            'email' =>  request('parent_email'),
+            'phone'  => request('parent_phone'),
+            'address'  => request('address'),
+            'house_number' => request('house_number')
+        ];
+        $parent =  $this->createOrUpdateParent($parent_data);
+        //getting the student data from the request 
+        $studentData = [
+            'name' => request('name'),
+            'email' =>  request('email'),
+            'class_id' => request('class_id'),
+            'parent_id' => $parent->id,
+        ];
+        Student::create($studentData);
 
         return redirect()->route('students.index');
     }
@@ -71,5 +87,12 @@ class StudentController extends Controller
         $student->delete();
 
         return redirect()->route('students.index');
+    }
+
+    protected function createOrUpdateParent($data)
+    {
+        $student = new Student;
+        $parent = $student->parent()->create($data);
+        return $parent;
     }
 }
