@@ -92,14 +92,20 @@ class StudentController extends Controller
     protected function createOrUpdateParent($data)
     {
         $student = new Student;
-        $validated = request()->validate([
+        request()->validate([
             'parent_name' => ['required', 'min:3'],
             'parent_email' => ['required', 'email'],
             'phone' => ['required', 'min:9'],
             'address' => ['nullable', 'string'],
             'house_number' => ['nullable']
         ]);
-        $parent = $student->parent()->updateOrCreate($validated);
+        $parent = $student->parent()->updateOrCreate(['id' => $student->parent_id], [
+            'parent_name' => request('parent_name'),
+            'parent_email' => request('parent_email'),
+            'phone' => request('phone'),
+            'address' => request('address'),
+            'house_number' => request('house_number')
+        ]);
         return $parent;
     }
 }
