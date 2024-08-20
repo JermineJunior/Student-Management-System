@@ -1,9 +1,6 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
-import { watch, ref, onMounted } from "vue";
-import axios from "axios";
-import InputError from "@/Components/InputError.vue";
 
 defineProps({
   student: {
@@ -40,10 +37,10 @@ defineProps({
                 <!-- student parent info -->
                 <div class="mx-6">
                   <div>
-                    Parent Name : <span class="font-semibold"> {{ student.data.parent.name }}</span>
+                    Parent Name : <span class="font-semibold"> {{ student.data.parent.parent_name }}</span>
                   </div>
                   <div>
-                    Parent Email : <span class="font-semibold"> {{ student.data.parent.email }}</span>
+                    Parent Email : <span class="font-semibold"> {{ student.data.parent.parent_email }}</span>
                   </div>
                   <div>
                     Parent contact : <span class="font-semibold"> {{ student.data.parent.phone }}</span>

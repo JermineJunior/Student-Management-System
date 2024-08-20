@@ -17,8 +17,8 @@ class ParentsFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'  => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
+            'parent_name'  => $this->faker->name,
+            'parent_email' => $this->faker->safeEmail,
             'phone' => fake()->phoneNumber(),
             'address' => fake()->address()
         ];

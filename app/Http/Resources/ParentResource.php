@@ -16,8 +16,8 @@ class ParentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
+            'parent_name' => $this->parent_name,
+            'parent_email' => $this->parent_email,
             'phone' => $this->phone,
             'address' => $this->address,
             'addedOn' => $this->created_at->toFormattedDateString()

@@ -42,13 +42,13 @@ class StudentController extends Controller
         );
     }
 
-    public function store(StoreStudentRequest $request)
+    public function store()
     {
         //getting the parent data from the request 
         $parent_data = [
             'name' => request('parent_name'),
             'email' =>  request('parent_email'),
-            'phone'  => request('parent_phone'),
+            'phone'  => request('phone'),
             'address'  => request('address'),
             'house_number' => request('house_number')
         ];
@@ -92,7 +92,14 @@ class StudentController extends Controller
     protected function createOrUpdateParent($data)
     {
         $student = new Student;
-        $parent = $student->parent()->create($data);
+        $validated = request()->validate([
+            'parent_name' => ['required', 'min:3'],
+            'parent_email' => ['required', 'email'],
+            'phone' => ['required', 'min:9'],
+            'address' => ['nullable', 'string'],
+            'house_number' => ['nullable']
+        ]);
+        $parent = $student->parent()->updateOrCreate($validated);
         return $parent;
     }
 }
