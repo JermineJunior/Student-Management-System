@@ -181,7 +181,7 @@ const deleteStudent = (id) => {
                                                 class="transition-colors duration-300 ease-in-out hover:bg-gray-200">
                                                 <td
                                                     class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
-                                                    {{ index + 1 }}
+                                                    {{ student.id }}
                                                 </td>
                                                 <td
                                                     class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
@@ -191,7 +191,7 @@ const deleteStudent = (id) => {
                                                     {{ student.email }}
                                                 </td>
                                                 <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                    {{ student.parent.name }}
+                                                    {{ student.parent.parent_name }}
                                                 </td>
                                                 <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                     {{ student.class.name }}

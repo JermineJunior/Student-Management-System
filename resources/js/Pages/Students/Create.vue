@@ -2,8 +2,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import InputError from "@/Components/InputError.vue";
-import { watch, ref } from "vue";
-import axios from "axios";
+
 
 defineProps({
     classes: {
@@ -17,7 +16,7 @@ const form = useForm({
     class_id: "",
     parent_name: "",
     parent_email: "",
-    parent_phone: "",
+    phone: "",
     address: "",
     house_number: ""
 });
@@ -111,16 +110,16 @@ const submit = () => {
                                     </div>
                                     <!-- parent phone -->
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="parent_phone" class="block text-sm font-medium text-gray-700">Parent
+                                        <label for="phone" class="block text-sm font-medium text-gray-700">Parent
                                             phone
                                         </label>
-                                        <input type="tel" v-model="form.parent_phone" id="parent_phone" name="parent_phone"
+                                        <input type="tel" v-model="form.phone" id="phone" name="phone"
                                             class="block px-3 py-2 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                             :class="{
                                                 'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
-                                                    form.errors.parent_phone,
+                                                    form.errors.phone,
                                             }" required />
-                                        <InputError class="mt-2" :message="form.errors.parent_phone" />
+                                        <InputError class="mt-2" :message="form.errors.phone" />
                                     </div>
                                     <!-- parent email -->
                                     <div class="col-span-6 sm:col-span-3">
@@ -153,7 +152,8 @@ const submit = () => {
                                         <label for="house_number" class="block text-sm font-medium text-gray-700">
                                             House Number
                                         </label>
-                                        <input type="number" v-model="form.house_number" id="house_number" name="house_number"
+                                        <input type="number" v-model="form.house_number" id="house_number"
+                                            name="house_number"
                                             class="block px-3 py-2 mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                             :class="{
                                                 'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
