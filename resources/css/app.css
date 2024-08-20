@@ -4,7 +4,7 @@
 
 /* buttons */
 .btn-indigo {
-    @apply px-6 py-3 rounded bg-indigo-600 text-white text-sm leading-4 font-bold whitespace-nowrap hover:bg-orange-400 focus:bg-orange-400;
+    @apply px-3 py-2 text-sm font-bold leading-4 text-white whitespace-nowrap bg-indigo-600 rounded;
 }
 
 .btn-spinner,
@@ -39,13 +39,13 @@
 /* forms */
 
 .form-label {
-    @apply mb-2 block text-gray-700 select-none;
+    @apply block mb-2 text-gray-700 select-none;
 }
 
 .form-input,
 .form-textarea,
 .form-select {
-    @apply p-2 leading-normal block w-full border text-gray-700 bg-white font-sans rounded text-left appearance-none relative focus:border-indigo-400 focus:ring;
+    @apply block relative p-2 w-full font-sans leading-normal text-left text-gray-700 bg-white rounded border appearance-none focus:border-indigo-400 focus:ring;
 
     &::placeholder {
         @apply text-gray-500 opacity-100;
@@ -72,5 +72,5 @@
 }
 
 .form-error {
-    @apply text-red-700 mt-2 text-sm;
+    @apply mt-2 text-sm text-red-700;
 }

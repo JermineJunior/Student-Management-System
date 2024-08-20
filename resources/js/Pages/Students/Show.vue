@@ -39,11 +39,18 @@ defineProps({
                 </div>
                 <!-- student parent info -->
                 <div class="mx-6">
-                  <p>Parent Name : <span class="font-semibold"> {{ student.data.parent.name }}</span></p>
-                  <p>Parent Email : <span class="font-semibold"> {{ student.data.parent.email }}</span></p>
-                  <p>Parent contact : <span class="font-semibold"> {{ student.data.parent.phone }}</span></p>
-                  <p>Parent Address : <span class="font-semibold"> {{ student.data.parent.address }}</span>
-                  </p>
+                  <div>
+                    Parent Name : <span class="font-semibold"> {{ student.data.parent.name }}</span>
+                  </div>
+                  <div>
+                    Parent Email : <span class="font-semibold"> {{ student.data.parent.email }}</span>
+                  </div>
+                  <div>
+                    Parent contact : <span class="font-semibold"> {{ student.data.parent.phone }}</span>
+                  </div>
+                  <div>
+                    Parent Address : <span class="font-semibold"> {{ student.data.parent.address }}</span>
+                  </div>
                 </div>
               </div>
             </div>
