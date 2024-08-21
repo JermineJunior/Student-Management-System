@@ -15,14 +15,14 @@ class ClassesSeeder extends Seeder
     public function run(): void
     {
         Classes::factory()
-            ->count(10)
+            ->count(6)
             ->sequence(fn($sequence) => [
                 'name' => 'ClassRoom ' . $sequence->index +
                     1
             ])
             ->has(
                 Student::factory()
-                    ->count(30)
+                    ->count(10)
                     ->state(
                         function (array $attributes, Classes $class) {
                             return ['class_id' => $class->id];

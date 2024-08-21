@@ -17,7 +17,9 @@ class ClassesFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->randomElement(['class1', 'class2', 'class3', 'Class4', 'class5', 'class6'])
+            'name' => fake()->randomElement(
+                ['ClassRoom1', 'ClassRoom2', 'ClassRoom3', 'ClassRoom4', 'ClassRoom5', 'ClassRoom6']
+                )
         ];
     }
 }
