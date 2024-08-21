@@ -42,4 +42,10 @@ class Student extends Model
     {
         return '/students/' . $this->id;
     }
+
+    //return the subjects in the student class
+    public function subjects()
+    {
+        return $this->class->subjects;
+    }
 }

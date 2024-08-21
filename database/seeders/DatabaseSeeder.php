@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UsersSeeder::class,
-            ClassesSeeder::class
+            ClassesSeeder::class,
+            SubjectsSeeder::class
         ]);
         Teacher::factory(10)->create();
     }
