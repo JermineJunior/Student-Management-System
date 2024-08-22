@@ -5,6 +5,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
+use App\Models\Classes;
+use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,7 +23,15 @@ Route::get("/", function () {
 });
 //dashboard
 Route::get("/dashboard", function () {
-    return Inertia::render("Dashboard");
+    $student_count = Student::count();
+    $class_count = Classes::count();
+    $teacher_count = Teacher::count();
+
+    return Inertia::render("Dashboard", [
+        "students" => $student_count,
+        "classes" => $class_count,
+        "teachers" => $teacher_count
+    ]);
 })
     ->middleware(["auth", "verified"])
     ->name("dashboard");
@@ -44,7 +55,7 @@ Route::middleware("auth")->group(function () {
     Route::resource('/classes', ClassesController::class)->except(['show', 'create']);
     //Subjects ROutes
     Route::get('/subjects', [SubjectController::class, 'index'])->name('subjects.index');
-    Route::get('/subjects/create' , [SubjectController::class, 'create'])->name('subjects.create');
+    Route::get('/subjects/create', [SubjectController::class, 'create'])->name('subjects.create');
 });
 //
 
