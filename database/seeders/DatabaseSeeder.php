@@ -19,6 +19,6 @@ class DatabaseSeeder extends Seeder
             ClassesSeeder::class,
             SubjectsSeeder::class
         ]);
-        Teacher::factory(10)->create();
+        Teacher::factory(36)->create();
     }
 }

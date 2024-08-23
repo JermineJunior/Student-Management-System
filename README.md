@@ -39,14 +39,23 @@ Use code with caution.
 Install dependencies:
 
     composer install && npm i
-    copy the .env.example to .env
+copy the .env.example to .env
+
     cp .env.example .env
 
 Create the application key 
 
     php artisan key:generate
 Set up database: Create a database and configure database credentials in the configuration file.
+
+run the migration and seed the database
+
+    php artisan migrate:seed
 Run the application:
-Bash
+
 
     php artisan serve
+Use the credentials below to sign in 
+
+    Email: admin@admin.com
+    Password: password

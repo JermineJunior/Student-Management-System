@@ -16,7 +16,7 @@ class SubjectsSeeder extends Seeder
     {
         $classes = Classes::all();
         $classes->map(fn($sequence) => [
-            Subject::factory(4)->create(['class_id' => $sequence->id])
+            Subject::factory(5)->create(['class_id' => $sequence->id])
         ]);
     }
 }

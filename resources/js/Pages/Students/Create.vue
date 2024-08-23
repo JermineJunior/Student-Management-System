@@ -43,7 +43,7 @@ const submit = () => {
                     <form @submit.prevent="submit">
                         <div class="shadow sm:rounded-md sm:overflow-hidden">
                             <div class="px-4 py-6 space-y-6 bg-white sm:p-6">
-                                <div>
+                                   <div>
                                     <h3 class="text-lg font-medium leading-6 text-gray-900">
                                         Student Information
                                     </h3>

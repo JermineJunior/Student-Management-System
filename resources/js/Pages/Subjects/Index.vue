@@ -1,13 +1,16 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
+import InputError from "@/Components/InputError.vue";
+
 
 defineProps({
   subjects: {
     type: Object,
     required: true
-  }
+  },
 });
+
 </script>
 
 <template>
@@ -19,6 +22,7 @@ defineProps({
       <h2 class="text-xl font-semibold leading-tight text-gray-800">Subjects</h2>
     </template>
 
+    <!-- display subjects -->
     <div class="py-10 bg-gray-100">
       <div class="mx-auto max-w-7xl">
         <div class="px-4 sm:px-6 lg:px-8">

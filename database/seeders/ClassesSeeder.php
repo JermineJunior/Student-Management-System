@@ -15,7 +15,7 @@ class ClassesSeeder extends Seeder
     public function run(): void
     {
         Classes::factory()
-            ->count(6)
+            ->count(10)
             ->sequence(fn($sequence) => [
                 'name' => 'ClassRoom ' . $sequence->index +
                     1
