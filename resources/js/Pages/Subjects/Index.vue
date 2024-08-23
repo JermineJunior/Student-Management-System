@@ -9,6 +9,9 @@ defineProps({
     type: Object,
     required: true
   },
+  classroom: {
+    type: Number,
+  }
 });
 
 </script>
@@ -32,7 +35,7 @@ defineProps({
                 Subjects
               </h1>
               <p class="mt-2 text-sm text-gray-700">
-                A list of all the subjects.
+                A list of all the subjects for Class Room {{ classroom }}.
               </p>
             </div>
 

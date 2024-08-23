@@ -97,7 +97,7 @@ const deleteClass = (id) => {
                           {{ Class.name }}
                         </td>
                         <td class="py-4 text-sm font-medium text-gray-900 whitespace-nowrap x-5 sm:pl-6">
-                          <Link :href="route('subjects.index')" class="flex items-center">
+                          <Link :href="route('subjects.show', Class.id)" class="flex items-center">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="mx-[2px] size-4">
                             <path stroke-linecap="round" stroke-linejoin="round"

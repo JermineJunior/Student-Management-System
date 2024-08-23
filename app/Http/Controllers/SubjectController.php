@@ -6,13 +6,12 @@ use App\Http\Resources\SubjectResource;
 use App\Models\Subject;
 use App\Models\Classes;
 use App\Http\Resources\ClassesResource;
-use Illuminate\Http\Request;
+
 
 class SubjectController extends Controller
 {
     public function index()
     {
-
         $subjects = SubjectResource::collection(Subject::orderBy('class_id', 'asc')->get());
         return inertia('Subjects/Index', ['subjects' => $subjects]);
     }
@@ -32,6 +31,12 @@ class SubjectController extends Controller
         ]);
         Subject::create($validatedData);
 
-        return redirect()->route('subjects.index');
+        return redirect()->route('subjects.show', request('class_id'));
+    }
+
+    public function show($class)
+    {
+        $subjects = SubjectResource::collection(Subject::where('class_id', '=', $class)->get());
+        return inertia('Subjects/Index', ['subjects' => $subjects, 'classroom' => $class]);
     }
 }
