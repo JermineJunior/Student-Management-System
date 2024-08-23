@@ -32,4 +32,26 @@ describe('subjects test', function () {
         $subject = createSubject();
         expect($subject->classRoom->id)->toEqual($subject->class_id);
     });
+
+    test('the create page is auth guarded', function () {
+        $this->get('/subjects/create')->assertRedirect('/login');
+    });
+
+    test('the create page can be rendered', function () {
+        $this->signIn()->get('/subjects/create')->assertOk();
+    });
+
+    test('authenticated users can add new subject', function () {
+        $class = Classes::factory()->create();
+        $subject = [
+            'name' => 'Arabic',
+            'class_id' => $class->id,
+            'full_mark' => 40
+        ];
+
+        $response = $this->signIn()->post('/subjects', $subject);
+        $response
+            ->assertSessionHasNoErrors()
+            ->assertRedirect('/subjects');
+    });
 });

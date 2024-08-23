@@ -5,11 +5,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
 use App\Models\Classes;
 use App\Models\Student;
 use App\Models\Teacher;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 
@@ -56,6 +56,7 @@ Route::middleware("auth")->group(function () {
     //Subjects ROutes
     Route::get('/subjects', [SubjectController::class, 'index'])->name('subjects.index');
     Route::get('/subjects/create', [SubjectController::class, 'create'])->name('subjects.create');
+    Route::post('/subjects', [SubjectController::class, 'store'])->name('subjects.store');
 });
 //
 

@@ -20,6 +20,18 @@ class SubjectController extends Controller
     public function create()
     {
         $classes = ClassesResource::collection(Classes::all());
-        return inertia('Subjects/Create' , ['classes' => $classes]);
+        return inertia('Subjects/Create', ['classes' => $classes]);
+    }
+
+    public function store()
+    {
+        $validatedData =  request()->validate([
+            'name' => ['required', 'min:3'],
+            'class_id' =>  ['required', 'exists:classes,id'],
+            'full_mark' => ['required', 'integer']
+        ]);
+        Subject::create($validatedData);
+
+        return redirect()->route('subjects.index');
     }
 }

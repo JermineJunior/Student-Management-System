@@ -14,10 +14,12 @@ defineProps({
 const form = useForm({
   name: "",
   class_id: "",
-  full_marks: ""
+  full_mark: ""
 });
 
-const submit = () => { }
+const submit = () => {
+  form.post(route('subjects.store'));
+}
 
 </script>
 
