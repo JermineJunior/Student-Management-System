@@ -95,10 +95,10 @@ const submit = () => {
                   </div>
                 </div>
                 <div class="px-4 py-3 text-right bg-white sm:px-6">
-                  <Link :href="route('subjects.index')"
+                  <!-- <Link :href="route('subjects.index')"
                     class="inline-flex items-center px-4 py-2 mr-4 text-sm font-medium text-indigo-700 bg-indigo-100 rounded-md border border-transparent hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                   Cancel
-                  </Link>
+                  </Link> -->
                   <button type="submit"
                     class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md border border-transparent shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     Save

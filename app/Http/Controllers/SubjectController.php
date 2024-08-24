@@ -10,12 +10,7 @@ use App\Http\Resources\ClassesResource;
 
 class SubjectController extends Controller
 {
-    public function index()
-    {
-        $subjects = SubjectResource::collection(Subject::orderBy('class_id', 'asc')->get());
-        return inertia('Subjects/Index', ['subjects' => $subjects]);
-    }
-
+    
     public function create()
     {
         $classes = ClassesResource::collection(Classes::all());
