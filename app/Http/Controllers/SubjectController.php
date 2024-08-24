@@ -39,4 +39,17 @@ class SubjectController extends Controller
         $subjects = SubjectResource::collection(Subject::where('class_id', '=', $class)->get());
         return inertia('Subjects/Index', ['subjects' => $subjects, 'classroom' => $class]);
     }
+
+    public function update(Subject $subject)
+    {
+        //class id should not change on update !!
+        $validatedData =  request()->validate([
+            'name' => ['required', 'min:3'],
+            'class_id' => ['required', 'exists:classes,id'],
+            'full_mark' => ['required']
+        ]);
+        $subject->update($validatedData);
+
+        return redirect()->route('subjects.show', $subject->class_id);
+    }
 }

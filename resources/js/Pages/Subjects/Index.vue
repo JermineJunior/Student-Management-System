@@ -1,8 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import InputError from "@/Components/InputError.vue";
-
+import Edit from './Partials/Edit.vue';
 
 defineProps({
   subjects: {
@@ -10,7 +9,7 @@ defineProps({
     required: true
   },
   classroom: {
-    type: Number,
+    type: String,
   }
 });
 
@@ -66,6 +65,8 @@ defineProps({
                         <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
                           Class
                         </th>
+                        <th scope="col"
+                          class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6" />
                       </tr>
                     </thead>
 
@@ -83,6 +84,9 @@ defineProps({
                         </td>
                         <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                           {{ subject.class.name }}
+                        </td>
+                        <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
+                          <Edit :subject />
                         </td>
                       </tr>
                     </tbody>
