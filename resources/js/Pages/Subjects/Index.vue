@@ -13,6 +13,15 @@ defineProps({
   }
 });
 
+const deleteForm = useForm({});
+
+const deleteSubject = (id) => {
+  if (confirm("Are you sure you want to delete this subject?")) {
+    deleteForm.delete(route("subjects.destroy", id), {
+      preserveScroll: true,
+    });
+  }
+};
 </script>
 
 <template>
@@ -85,8 +94,15 @@ defineProps({
                         <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                           {{ subject.class.name }}
                         </td>
-                        <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
+                        <td class="flex items-center justify-end mr-5 py-4 pr-4 pl-3 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
                           <Edit :subject />
+                          <button @click="
+                            deleteSubject(
+                              subject.id,
+                            )
+                            " class="ml-2 text-red-500 hover:text-red-700">
+                            Delete
+                          </button>
                         </td>
                       </tr>
                     </tbody>

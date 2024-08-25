@@ -10,7 +10,7 @@ use App\Http\Resources\ClassesResource;
 
 class SubjectController extends Controller
 {
-    
+
     public function create()
     {
         $classes = ClassesResource::collection(Classes::all());
@@ -45,6 +45,12 @@ class SubjectController extends Controller
         ]);
         $subject->update($validatedData);
 
+        return redirect()->route('subjects.show', $subject->class_id);
+    }
+
+    public function destroy(Subject $subject)
+    {
+        $subject->delete();
         return redirect()->route('subjects.show', $subject->class_id);
     }
 }
