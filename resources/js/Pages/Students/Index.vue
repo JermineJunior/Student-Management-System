@@ -207,13 +207,13 @@ const deleteStudent = (id) => {
                                                     class="relative py-4 pr-4 pl-3 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
                                                     <Link :href="route('students.show', student.id)
                                                         " class="text-indigo-600 hover:text-indigo-900">
-                                                    view
+                                                    View
                                                     </Link>
                                                     <button @click="
                                                         deleteStudent(
                                                             student.id,
                                                         )
-                                                        " class="ml-2 text-indigo-600 hover:text-indigo-900">
+                                                        " class="ml-2 text-red-500 hover:text-red-700">
                                                         Delete
                                                     </button>
                                                 </td>

@@ -87,4 +87,15 @@ describe('subjects test', function () {
             'full_mark' => 40
         ]);
     });
+
+    it('can be deleted', function () {
+        $subject = createSubject();
+
+        $response = $this->signIn()->delete('/subjects/' . $subject->id, $subject->toArray());
+
+        $response
+            ->assertSessionHasNoErrors()
+            ->assertRedirect('/subjects/1');
+        $this->assertDatabaseMissing('subjects' , ['name' => $subject->name]);
+    });
 });

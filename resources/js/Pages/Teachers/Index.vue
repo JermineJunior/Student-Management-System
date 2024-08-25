@@ -184,7 +184,7 @@ const deleteTeacher = (id) => {
                             deleteTeacher(
                               teacher.id,
                             )
-                            " class="ml-2 text-indigo-600 hover:text-indigo-900">
+                            " class="ml-2 text-red-500 hover:text-red-700">
                             Delete
                           </button>
                         </td>
