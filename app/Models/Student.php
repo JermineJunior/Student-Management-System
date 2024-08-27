@@ -38,10 +38,6 @@ class Student extends Model
             });
         });
     }
-    public function path(): string
-    {
-        return '/students/' . $this->id;
-    }
 
     //return the subjects in the student class
     public function subjects()

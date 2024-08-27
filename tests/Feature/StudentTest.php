@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Classes;
+use App\Models\Parents;
 use App\Models\Student;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -32,6 +33,7 @@ describe('student crud', function () {
 
         $response->assertSee($student->name);
         $response->assertSee($student->email);
+        $response->assertSee($student->parent->parent_name);
     });
 
     test('authenticated users can see the create student page', function () {
@@ -40,5 +42,21 @@ describe('student crud', function () {
 
         $response->assertOk();
         $response->assertStatus(200);
+    });
+    test('authenticated users can add students', function () {
+        $parent = Parents::factory()->create();
+        $classroom = Classes::factory()->create();
+        $student = [
+            'name' => 'jack reacher',
+            'email' => 'jac@ex.com',
+            'class_id' => $classroom->id,
+            'parent_id' => $parent->id,
+            'parent_name' => $parent->parent_name,
+            'parent_email' => $parent->parent_email,
+            'phone' => $parent->phone,
+        ];
+
+        $response = $this->signIn()->post('/students', $student);
+        $response->assertSessionHasNoErrors();
     });
 });

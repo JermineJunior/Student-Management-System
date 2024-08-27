@@ -17,7 +17,7 @@ const student = usePage().props.student;
 const form = useForm({
     name: student.data.name,
     email: student.data.email,
-    class: student.data.class.id,
+    class_id: student.data.class.id,
 });
 
 
@@ -30,6 +30,7 @@ const submit = () => {
 </script>
 
 <template>
+
     <Head title="Students" />
 
     <AuthenticatedLayout>
@@ -79,7 +80,7 @@ const submit = () => {
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="class" class="block text-sm font-medium text-gray-700">Class</label>
-                                        <select v-model="form.class" id="class"
+                                        <select v-model="form.class_id" id="class"
                                             class="block px-3 py-2 mt-1 w-full bg-white rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                             :class="{
                                                 'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
