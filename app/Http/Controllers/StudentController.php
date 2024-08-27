@@ -9,6 +9,7 @@ use App\Http\Resources\ClassesResource;
 use App\Http\Resources\StudentResource;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\Parents;
 
 class StudentController extends Controller
 {
@@ -42,7 +43,7 @@ class StudentController extends Controller
         );
     }
 
-    public function store()
+    public function store(StoreStudentRequest $request)
     {
         //getting the parent data from the request 
         $parent_data = [
@@ -52,14 +53,10 @@ class StudentController extends Controller
             'address'  => request('address'),
             'house_number' => request('house_number')
         ];
-        $parent =  $this->createOrUpdateParent($parent_data);
-        //getting the student data from the request 
-        $studentData = [
-            'name' => request('name'),
-            'email' =>  request('email'),
-            'class_id' => request('class_id'),
-            'parent_id' => $parent->id,
-        ];
+        $parent_id =  $this->createOrUpdateParent();
+        //validate student data
+        $studentData = [...$$request->validated(), "parent_id" => $parent_id];
+        
         Student::create($studentData);
 
         return redirect()->route('students.index');
@@ -89,23 +86,16 @@ class StudentController extends Controller
         return redirect()->route('students.index');
     }
 
-    protected function createOrUpdateParent($data)
+    protected function createOrUpdateParent()
     {
-        $student = new Student;
-        request()->validate([
+        $data = request()->validate([
             'parent_name' => ['required', 'min:3'],
             'parent_email' => ['required', 'email'],
             'phone' => ['required', 'min:9'],
             'address' => ['nullable', 'string'],
             'house_number' => ['nullable']
         ]);
-        $parent = $student->parent()->updateOrCreate(['id' => $student->parent_id], [
-            'parent_name' => request('parent_name'),
-            'parent_email' => request('parent_email'),
-            'phone' => request('phone'),
-            'address' => request('address'),
-            'house_number' => request('house_number')
-        ]);
-        return $parent;
+        $id  = Parents::createOrUpdate($data);
+        return $id;
     }
 }
