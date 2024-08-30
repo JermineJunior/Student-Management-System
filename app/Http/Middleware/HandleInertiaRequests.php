@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\SchoolResource;
+use App\Models\School;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -34,6 +36,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'schools' => SchoolResource::collection(School::all()),
         ];
     }
 }
