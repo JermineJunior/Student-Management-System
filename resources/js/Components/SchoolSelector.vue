@@ -11,11 +11,21 @@
     </button>
     <template #popper="{ hide }">
       <ul class="py-4">
-        <li class="py-1 hover:bg-gray-200" v-for="school in schools" :key="school.id">
-          <Link class="px-4 py-2 text-sm block text-gray-500" :href="`/dashboard/${school.id}`">
-         
-          {{ school.name }}
-          </Link>
+        <li class="py-1 flex items-center space-x-2 hover:bg-gray-200" v-for="school in schools" :key="school.id">
+          <button @click="activate(school.id)" class="px-4 py-2 text-sm block text-gray-500"
+            :disabled="school.status === 1">
+            {{ school.name }}
+          </button>
+          <svg v-if="school.status === 1" class="w-5 h-5 fill-green-600" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <path
+                d="M12 20V17.6M12 6.4V4M20 12H17.6M6.4 12H4M17.6569 6.34315L15.9598 8.0402M8.0402 15.9598L6.34315 17.6569M6.34293 6.34332L8.03999 8.04038M15.9596 15.96L17.6566 17.657"
+                stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path>
+            </g>
+          </svg>
         </li>
         <li>
           <button @click="hide();" class=" w-full text-left block px-3 py-2 text-indigo-600 hover:bg-gray-200 ">Add a
@@ -26,9 +36,19 @@
   </VDropdown>
 </template>
 <script setup>
-import { usePage } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
+
 
 let page = usePage();
 
 let schools = page.props.schools.data
+
+const activateForm = useForm({});
+const activate = (id) => {
+  if (confirm('Activate this school?')) {
+    activateForm.patch(`/schools/${id}`, {
+      onSuccess: () => { hide(); }
+    });
+  }
+}
 </script>

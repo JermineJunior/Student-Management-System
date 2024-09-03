@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\UpdateSchoolController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Models\Classes;
@@ -55,6 +56,8 @@ Route::middleware("auth")->group(function () {
     Route::resource('/classes', ClassesController::class)->except(['show', 'create']);
     //Subjects ROutes
     Route::resource('/subjects', SubjectController::class)->except(['index', 'edit']);
+
+    Route::patch('/schools/{school}', UpdateSchoolController::class)->middleware('auth');
 });
 //
 

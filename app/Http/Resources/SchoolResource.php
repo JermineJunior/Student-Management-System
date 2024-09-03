@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\School;
+use App\SchoolStatus;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,7 +19,8 @@ class SchoolResource extends JsonResource
         return [
             'id'  =>  $this->id,
             'name'  => $this->name,
-            'status'  => $this->status,
+            'status'  => SchoolStatus::from($this->status)->value,
+            'status_label' => SchoolStatus::from($this->status)->label()
         ];
     }
 }
