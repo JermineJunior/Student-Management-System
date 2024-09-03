@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 
 class UpdateSchoolController extends Controller
 {
-    public function __invoke(School $school)
+    public function update(School $school)
     {
         //activate the school
         $school->update(['status' => 1]);
 
-        return back();
+        return redirect()->route('dashboard');
     }
 }

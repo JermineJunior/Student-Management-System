@@ -57,7 +57,9 @@ Route::middleware("auth")->group(function () {
     //Subjects ROutes
     Route::resource('/subjects', SubjectController::class)->except(['index', 'edit']);
 
-    Route::patch('/schools/{school}', UpdateSchoolController::class)->middleware('auth');
+    Route::patch('/schools/{school}', [UpdateSchoolController::class, 'update'])
+        ->middleware('auth')
+        ->name('schools.update');
 });
 //
 
