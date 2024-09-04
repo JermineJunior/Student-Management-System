@@ -7,9 +7,11 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UpdateSchoolController;
+use App\Http\Resources\SchoolResource;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Models\Classes;
+use App\Models\School;
 use App\Models\Student;
 use App\Models\Teacher;
 use Inertia\Inertia;
@@ -28,11 +30,13 @@ Route::get("/dashboard", function () {
     $student_count = Student::count();
     $class_count = Classes::count();
     $teacher_count = Teacher::count();
+    $schools = SchoolResource::collection(School::all());
 
     return Inertia::render("Dashboard", [
         "students" => $student_count,
         "classes" => $class_count,
-        "teachers" => $teacher_count
+        "teachers" => $teacher_count,
+        'schools'  => $schools
     ]);
 })
     ->middleware(["auth", "verified"])

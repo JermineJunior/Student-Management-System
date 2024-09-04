@@ -7,14 +7,14 @@ import SchoolSelector from '@/Components/Schools/SchoolSelector.vue';
 import School from '@/Components/Schools/School.vue';
 
 
-defineProps({
+const props = defineProps({
     students: Number,
     classes: Number,
-    teachers: Number
+    teachers: Number,
+    schools: Object
 })
-let page = usePage();
 
-let Schools = page.props.schools.data
+let Schools = props.schools.data
 const theFormat = (num) =>
     `${Number.parseFloat(num.toFixed(0))}`;
 

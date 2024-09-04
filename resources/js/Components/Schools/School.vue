@@ -38,6 +38,7 @@ import { ref, watch } from 'vue';
 import TextInput from '../TextInput.vue';
 import InputLabel from '../InputLabel.vue';
 import { useForm, router } from '@inertiajs/vue3';
+import debounce from 'lodash.debounce';
 const props = defineProps({
   school: {
     type: Object,
@@ -51,11 +52,11 @@ const editingForm = useForm({
   name: props.school.name
 })
 
-let editName = () => {
+let editName = debounce(() => {
   editingForm.patch(route('schools.update', props.school.id), {
-    preserveScroll: true
-  })
-}
+    preserveScroll: true,
+  });
+}, 500);
 //watch the form for changes
 watch(() => editingForm.isDirty, () => {
   editName()
