@@ -38,7 +38,7 @@ const theFormat = (num) =>
                     <h2 class="text-xl ml-2 font-semibold leading-tight text-gray-800">Dashboard</h2>
                 </div>
                 <div class="mr-3">
-                    <SchoolSelector />
+                    <SchoolSelector :schools="Schools" />
                 </div>
             </div>
         </template>

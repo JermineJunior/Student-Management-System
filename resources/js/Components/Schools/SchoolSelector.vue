@@ -38,17 +38,19 @@
     </VDropdown>
 </template>
 <script setup>
-import { useForm, usePage, router } from "@inertiajs/vue3";
+import { useForm, router } from "@inertiajs/vue3";
 import { hideAllPoppers } from "floating-vue";
 
-let page = usePage();
+const props = defineProps({
+    schools: Object
+})
 
-let schools = page.props.schools.data;
+let schools = props.schools
 
 const activateForm = useForm({});
 const activate = (id) => {
     if (confirm("Activate this school?")) {
-        activateForm.patch(route('schools.modify', id), {
+        activateForm.patch(route('schools.edit', id), {
             onFinish: () => {
                 hideAllPoppers();
                 router.visit(route('dashboard'));
