@@ -55,15 +55,19 @@ Route::middleware("auth")->group(function () {
     Route::resource('/teachers', TeacherController::class);
     //Classes Route
     Route::resource('/classes', ClassesController::class)->except(['show', 'create']);
-    //Subjects ROutes
+    //Subjects Routes
     Route::resource('/subjects', SubjectController::class)->except(['index', 'edit']);
 
+    //Schools Routes
     Route::patch('/schools/{school}', UpdateSchoolController::class)
         ->middleware('auth')
         ->name('schools.modify');
     Route::patch('/schools/{school}', [SchoolController::class, 'update'])
         ->middleware('auth')
         ->name('schools.update');
+    Route::delete('/schools/{school}', [SchoolController::class, 'destroy'])
+        ->middleware('auth')
+        ->name('schools.destroy');
 });
 //
 

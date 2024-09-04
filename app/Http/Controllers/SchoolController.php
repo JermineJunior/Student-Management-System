@@ -11,4 +11,11 @@ class SchoolController extends Controller
     {
         dd($request->only('name'));
     }
+
+    public function destroy(School $school)
+    {
+        $school->delete();
+
+        return redirect()->route('dashboard');
+    }
 }

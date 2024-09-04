@@ -37,7 +37,7 @@
 import { ref, watch } from 'vue';
 import TextInput from '../TextInput.vue';
 import InputLabel from '../InputLabel.vue';
-import { useForm } from '@inertiajs/vue3';
+import { useForm, router } from '@inertiajs/vue3';
 const props = defineProps({
   school: {
     type: Object,
@@ -62,6 +62,15 @@ watch(() => editingForm.isDirty, () => {
 })
 
 const deleteForm = useForm({})
-const deleteSchool = (id) => { }
+const deleteSchool = (id) => {
+  if (confirm('Are you sure you want to delete this school?')) {
+    deleteForm.delete(route('schools.destroy', id), {
+      onSuccess: () => {
+        router.visit(route('dashboard'));
+      },
+      preserveScroll: true,
+    })
+  }
+}
 
 </script>
