@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class UpdateSchoolController extends Controller
 {
-    public function update(School $school)
+    public function  __invoke(School $school)
     {
         //activate the school
         $school->update(['status' => 1]);

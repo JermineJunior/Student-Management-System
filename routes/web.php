@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
@@ -57,10 +58,12 @@ Route::middleware("auth")->group(function () {
     //Subjects ROutes
     Route::resource('/subjects', SubjectController::class)->except(['index', 'edit']);
 
-    Route::patch('/schools/{school}', [UpdateSchoolController::class, 'update'])
+    Route::patch('/schools/{school}', UpdateSchoolController::class)
+        ->middleware('auth')
+        ->name('schools.modify');
+    Route::patch('/schools/{school}', [SchoolController::class, 'update'])
         ->middleware('auth')
         ->name('schools.update');
-        
 });
 //
 

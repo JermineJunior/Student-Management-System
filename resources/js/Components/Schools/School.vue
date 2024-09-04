@@ -1,10 +1,15 @@
 <template>
-
   <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
     {{ school.id }}
   </td>
   <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
-    {{ school.name }}
+    <template v-if="editing">
+      <InputLabel for="name" class="sr-only" value="School Name" />
+      <TextInput id="name" class="" v-model="editingForm.name" />
+    </template>
+    <template v-else>
+      {{ school.name }}
+    </template>
   </td>
   <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
     1000
@@ -13,8 +18,9 @@
     {{ school.status_label }}
   </td>
   <td class="relative py-4 pr-4 pl-3 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-    <button class="text-indigo-600 hover:text-indigo-900">
-      Edit
+    <button @click="editing = !editing" class="text-indigo-600 hover:text-indigo-900">
+      <span v-if="editing">Done</span>
+      <span v-else>Edit</span>
     </button>
     <button @click="
       deleteSchool(
@@ -28,15 +34,34 @@
 </template>
 
 <script setup>
-
+import { ref, watch } from 'vue';
+import TextInput from '../TextInput.vue';
+import InputLabel from '../InputLabel.vue';
+import { useForm } from '@inertiajs/vue3';
 const props = defineProps({
   school: {
     type: Object,
     required: true
   }
 });
+// handle inline editing
+const editing = ref(false)
 
+const editingForm = useForm({
+  name: props.school.name
+})
 
+let editName = () => {
+  editingForm.patch(route('schools.update', props.school.id), {
+    preserveScroll: true
+  })
+}
+//watch the form for changes
+watch(() => editingForm.isDirty, () => {
+  editName()
+})
+
+const deleteForm = useForm({})
 const deleteSchool = (id) => { }
 
 </script>

@@ -48,7 +48,7 @@ let schools = page.props.schools.data;
 const activateForm = useForm({});
 const activate = (id) => {
     if (confirm("Activate this school?")) {
-        activateForm.patch(route('schools.update', id), {
+        activateForm.patch(route('schools.modify', id), {
             onFinish: () => {
                 hideAllPoppers();
                 router.visit(route('dashboard'));
