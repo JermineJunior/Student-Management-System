@@ -1,9 +1,10 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import NumberAnimation from "vue-number-animation";
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import SchoolSelector from '@/Components/SchoolSelector.vue';
+import SchoolSelector from '@/Components/Schools/SchoolSelector.vue';
+import School from '@/Components/Schools/School.vue';
 
 
 defineProps({
@@ -11,8 +12,13 @@ defineProps({
     classes: Number,
     teachers: Number
 })
+let page = usePage();
+
+let Schools = page.props.schools.data
 const theFormat = (num) =>
     `${Number.parseFloat(num.toFixed(0))}`;
+
+
 </script>
 
 <template>
@@ -37,7 +43,45 @@ const theFormat = (num) =>
             </div>
         </template>
 
-        <div class="grid grid-cols-3  gap-4 md:grid-flow-col py-10">
+        <!-- Stats -->
+        <div class="grid grid-cols-4  gap-4 md:grid-flow-col py-10">
+            <!-- schools -->
+            <div
+                class="flex items-center justify-between max-w-md px-8 py-8 bg-white border-t-4 border-indigo-600  sm:rounded-lg shadow-md duration-300 hover:scale-105 hover:shadow-xl ">
+                <div class="text-gray-900 font-semibold text-xl">
+                    <p>Schools</p>
+                    <span>{{ Schools.length }}</span>
+                </div>
+                <svg version="1.1" class="size-10 fill-indigo-500" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" width="135px"
+                    height="135px" fill="#000000">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <g>
+                            <polygon class="fill-indigo-700"
+                                points="470.323,22.908 41.678,22.908 14.868,122.136 497.131,122.136 "></polygon>
+                            <polygon class="fill-indigo-700"
+                                points="369.865,175.265 256,128.862 142.134,175.265 142.134,89.745 256,27.865 369.865,89.745 ">
+                            </polygon>
+                            <rect x="205.697" y="359.133" class="fill-indigo-700" width="100.61" height="126.376">
+                            </rect>
+                        </g>
+                        <g>
+                            <path class="fill-indigo-500"
+                                d="M511.486,118.257l-26.808-99.228c-1.753-6.485-7.636-10.99-14.353-10.99H41.678 c-6.719,0-12.602,4.505-14.353,10.99l-26.81,99.228c-1.207,4.468-0.265,9.242,2.55,12.917c2.813,3.674,7.177,5.828,11.804,5.828 h24.254v352.091c0,8.211,6.658,14.868,14.868,14.868h88.144h227.733h88.144c8.21,0,14.868-6.656,14.868-14.868V248.077 c0-8.211-6.658-14.868-14.868-14.868c-8.21,0-14.868,6.656-14.868,14.868v226.15h-58.408V253.223 c0-8.211-6.658-14.868-14.868-14.868c-8.21,0-14.868,6.656-14.868,14.868v221.004H321.17V359.128 c0-8.211-6.658-14.868-14.868-14.868H205.698c-8.21,0-14.868,6.656-14.868,14.868v115.099h-33.829V253.223 c0-8.211-6.658-14.868-14.868-14.868s-14.868,6.656-14.868,14.868v221.004H68.858V137.004h58.408v38.261 c0,4.951,2.464,9.576,6.573,12.339c4.109,2.762,9.324,3.298,13.906,1.43l108.257-44.116l108.257,44.116 c1.808,0.736,3.712,1.099,5.608,1.099c2.914,0,5.809-0.856,8.296-2.529c4.109-2.762,6.573-7.388,6.573-12.339v-38.261h112.398 c4.627,0,8.992-2.154,11.804-5.828C511.749,127.5,512.692,122.725,511.486,118.257z M220.566,373.995h70.869v96.641h-70.869 V373.995z M135.034,76.682c-4.787,2.602-7.768,7.615-7.768,13.064v17.523H34.287l18.775-69.492h153.565L135.034,76.682z M354.999,153.15l-93.389-38.057c-1.798-0.733-3.704-1.099-5.61-1.099c-1.906,0-3.812,0.367-5.61,1.099l-93.389,38.057V98.587 L256,44.786l98.999,53.801V153.15z M384.735,107.268V89.745c0-5.449-2.981-10.462-7.768-13.064l-71.593-38.906h153.565 l18.775,69.492h-92.979V107.268z">
+                            </path>
+                            <path class="fill-indigo-500"
+                                d="M184.883,249.113c0,39.214,31.903,71.117,71.117,71.117s71.117-31.903,71.117-71.117 S295.214,177.994,256,177.994S184.883,209.899,184.883,249.113z M297.382,249.113c0,22.819-18.564,41.382-41.382,41.382 s-41.382-18.564-41.382-41.382s18.564-41.382,41.382-41.382S297.382,226.294,297.382,249.113z">
+                            </path>
+                            <path class="fill-indigo-500"
+                                d="M241.133,235.725v13.388c0,8.212,6.658,14.868,14.868,14.868h17.098 c8.21,0,14.868-6.656,14.868-14.868c0-8.211-6.658-14.868-14.868-14.868h-2.303c-0.742-7.517-7.083-13.388-14.795-13.388 C247.789,220.857,241.133,227.513,241.133,235.725z">
+                            </path>
+                        </g>
+                    </g>
+                </svg>
+
+            </div>
             <!-- students -->
             <div
                 class="flex items-center justify-between max-w-md px-8 py-8 bg-white border-t-4 border-indigo-600  sm:rounded-lg shadow-md duration-300 hover:scale-105 hover:shadow-xl ">
@@ -236,6 +280,42 @@ const theFormat = (num) =>
             </div>
             <!-- other stats -->
 
+        </div>
+
+        <!-- schools -->
+        <div class="flex flex-col mt-8">
+            <div class="overflow-x-auto -mx-4 -my-2 sm:-mx-6 lg:-mx-8">
+                <div class="inline-block py-2 min-w-full align-middle md:px-6 lg:px-8">
+                    <div class="overflow-hidden relative ring-1 ring-black ring-opacity-5 shadow md:rounded-lg">
+                        <table class="min-w-full divide-y divide-gray-300">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col"
+                                        class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
+                                        NO
+                                    </th>
+                                    <th scope="col"
+                                        class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
+                                        School Name
+                                    </th>
+                                    <th scope="col" class="px-3 py-3.5 text-sm font-semibold text-left text-gray-900">
+                                        No of Students
+                                    </th>
+                                    <th scope="col" class="px-3 py-3.5 text-sm font-semibold text-left text-gray-900">
+                                        Status
+                                    </th>
+                                    <th scope="col" class="relative py-3.5 pr-4 pl-3 sm:pr-6" />
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr v-for="school in Schools" :id="school.id">
+                                    <School :school="school" />
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- footer -->
 

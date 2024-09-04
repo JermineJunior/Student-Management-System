@@ -60,6 +60,7 @@ Route::middleware("auth")->group(function () {
     Route::patch('/schools/{school}', [UpdateSchoolController::class, 'update'])
         ->middleware('auth')
         ->name('schools.update');
+        
 });
 //
 
