@@ -7,9 +7,20 @@ use Illuminate\Http\Request;
 
 class SchoolController extends Controller
 {
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:schools,name',
+        ]);
+
+        School::create([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->back();
+    }
     public function update(Request $request, School $school)
     {
-        dd($school);
         $school->update($request->only('name'));
 
         return redirect()->route('dashboard');
