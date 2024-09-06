@@ -43,10 +43,19 @@
                     placeholder="ex. Noon Middle School" :class="{ 'border-red-600': createForm.errors.name }" />
                 <InputError class="mt-2" :message="createForm.errors.name" />
 
+                <div class="mt-4">
+                    <InputLabel for="description" value="Description" />
+                    <textarea id="description" v-model="createForm.description"
+                        class="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                        rows="3" placeholder="Enter school description"></textarea>
+                    <InputError class="mt-2" :message="createForm.errors.description" />
+                </div>
                 <div class="flex items-center justify-end px-2">
                     <button @click="showCreateModal = false"
                         class="px-2 py-1 mr-3 text-red-500 rounded bg-gray-50 ">Cancel</button>
-                    <PrimaryButton>Add School</PrimaryButton>
+                    <button type="submit"
+                        class="px-4 py-2 text-white bg-indigo-600 rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add
+                        School</button>
                 </div>
             </form>
         </div>
@@ -69,7 +78,8 @@ const props = defineProps({
 });
 
 const createForm = useForm({
-    name: ''
+    name: '',
+    description: ''
 });
 
 const createSchool = () => {

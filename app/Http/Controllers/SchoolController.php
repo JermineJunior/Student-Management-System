@@ -11,10 +11,12 @@ class SchoolController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:schools,name',
+            'description' => 'nullable|string|max:1000',
         ]);
 
         School::create([
             'name' => $request->name,
+            'description' => $request->description,
         ]);
 
         return redirect()->back();
