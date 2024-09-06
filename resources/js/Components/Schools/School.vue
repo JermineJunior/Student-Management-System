@@ -12,7 +12,7 @@
     </template>
   </td>
   <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
-    1000
+    {{ students }}
   </td>
   <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
     {{ school.status_label }}
@@ -43,6 +43,9 @@ const props = defineProps({
   school: {
     type: Object,
     required: true
+  },
+  students: {
+    type : Number,
   }
 });
 // handle inline editing

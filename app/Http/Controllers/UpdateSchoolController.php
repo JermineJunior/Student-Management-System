@@ -12,6 +12,6 @@ class UpdateSchoolController extends Controller
         //activate the school
         $school->update(['status' => 1]);
 
-        return back();
+        return redirect()->route('dashboard');
     }
 }

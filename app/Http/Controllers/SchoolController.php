@@ -9,9 +9,10 @@ class SchoolController extends Controller
 {
     public function update(Request $request, School $school)
     {
-       $school->update($request->only('name'));
+        dd($school);
+        $school->update($request->only('name'));
 
-       return redirect()->route('dashboard');
+        return redirect()->route('dashboard');
     }
 
     public function destroy(School $school)

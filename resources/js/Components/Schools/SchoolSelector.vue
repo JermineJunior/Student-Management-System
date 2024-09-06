@@ -53,7 +53,7 @@ const activate = (id) => {
         activateForm.patch(route('schools.edit', id), {
             onFinish: () => {
                 hideAllPoppers();
-                router.visit(route('dashboard'));
+               // router.visit(route('dashboard'));
             }
         });
     }

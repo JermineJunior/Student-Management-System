@@ -309,7 +309,7 @@ const theFormat = (num) =>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr v-for="school in Schools" :id="school.id">
-                                    <School :school="school" />
+                                    <School :school="school" :students="students" />
                                 </tr>
                             </tbody>
                         </table>
