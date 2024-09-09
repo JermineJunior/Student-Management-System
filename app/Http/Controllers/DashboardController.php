@@ -16,7 +16,11 @@ class DashboardController extends Controller
         $student_count = Student::count();
         $class_count = Classes::count();
         $teacher_count = Teacher::count();
-        $schools = SchoolResource::collection(School::all());
+        $schools = SchoolResource::collection(
+            School::all()->sortBy(function ($school){
+                return array_search($school->status, ['1' , '0']);
+            })
+        );
 
         return Inertia::render("Dashboard", [
             "students" => $student_count,

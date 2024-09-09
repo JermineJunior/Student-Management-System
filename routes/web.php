@@ -51,7 +51,7 @@ Route::middleware("auth")->group(function () {
     Route::post('/schools', [SchoolController::class, 'store'])->name('schools.store');
     Route::patch('/schools/{school}', [SchoolController::class, 'update'])->name('schools.update');
     Route::delete('/schools/{school}', [SchoolController::class, 'destroy'])->name('schools.destroy');
-    Route::patch('/schools/{school}', UpdateSchoolController::class)->name('schools.edit');
+    Route::patch('/schools/{school}/activate', UpdateSchoolController::class)->name('schools.edit');
 });
 //
 

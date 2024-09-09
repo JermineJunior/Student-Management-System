@@ -11,7 +11,7 @@
         </button>
         <template #popper="{ hide }">
             <ul class="py-4">
-                <li class="flex items-center py-1 space-x-2 hover:bg-gray-200" v-for="school in schools"
+                <li class="flex items-center px-2 py-1  space-x-2 hover:bg-gray-200" v-for="school in schools"
                     :key="school.id">
                     <button @click="activate(school.id)" class="block px-4 py-2 text-sm text-gray-500"
                         :disabled="school.status === 1">
@@ -40,14 +40,14 @@
             <form @submit.prevent="createSchool" class="space-y-4 overflow-hidden">
                 <InputLabel for="name" value="Name" class="sr-only" />
                 <TextInput type="text" id="name" v-model="createForm.name" class="block w-full text-sm h-9"
-                    placeholder="ex. Noon Middle School" :class="{ 'border-red-600': createForm.errors.name }" />
+                    placeholder="ex. Noon Middle School" :class="{ 'border-red-600': createForm.errors.name }" required />
                 <InputError class="mt-2" :message="createForm.errors.name" />
 
                 <div class="mt-4">
                     <InputLabel for="description" value="Description" />
                     <textarea id="description" v-model="createForm.description"
                         class="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                        rows="3" placeholder="Enter school description"></textarea>
+                        rows="3" placeholder="Enter school description" required></textarea>
                     <InputError class="mt-2" :message="createForm.errors.description" />
                 </div>
                 <div class="flex items-center justify-end px-2">
@@ -100,10 +100,10 @@ let schools = props.schools
 const activateForm = useForm({});
 const activate = (id) => {
     if (confirm("Activate this school?")) {
-        activateForm.patch(route('schools.edit', id), {
+        activateForm.patch(`/schools/${id}/activate`, {
             onFinish: () => {
                 hideAllPoppers();
-                // router.visit(route('dashboard'));
+                 router.visit(route('dashboard'));
             }
         });
     }
