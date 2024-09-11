@@ -15,18 +15,14 @@ use Inertia\Inertia;
 
 
 Route::get("/", function () {
-   /* return Inertia::render("Welcome", [
-        "canLogin" => Route::has("login"),
-        "canRegister" => Route::has("register"),
-        "laravelVersion" => Application::VERSION,
-        "phpVersion" => PHP_VERSION,
-    ]);*/
     return to_route('dashboard');
 });
+
 //dashboard
 Route::get("/dashboard", [DashboardController::class, 'index'])
     ->middleware('auth')
     ->name("dashboard");
+
 //Auth Routes
 Route::middleware("auth")->group(function () {
     Route::get("/profile", [ProfileController::class, "edit"])->name(
@@ -54,6 +50,5 @@ Route::middleware("auth")->group(function () {
     Route::delete('/schools/{school}', [SchoolController::class, 'destroy'])->name('schools.destroy');
     Route::patch('/schools/{school}/activate', UpdateSchoolController::class)->name('schools.edit');
 });
-//
 
 require __DIR__ . "/auth.php";
