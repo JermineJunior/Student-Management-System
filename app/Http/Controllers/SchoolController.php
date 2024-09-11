@@ -21,6 +21,7 @@ class SchoolController extends Controller
 
         return redirect()->back();
     }
+
     public function update(Request $request, School $school)
     {
         $school->update($request->only('name'));
