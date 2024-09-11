@@ -1,7 +1,7 @@
 <template>
  <footer class="bg-white ">
         <div
-            class="container flex flex-col items-center justify-between p-6 mx-auto space-y-4 sm:space-y-0 sm:flex-row">
+            class="max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex flex-col items-center justify-between mx-auto space-y-4 sm:space-y-0 sm:flex-row">
             <Link :href="route('dashboard')">
             <ApplicationLogo class="block w-auto text-gray-800 fill-current h-9" />
             </Link>
