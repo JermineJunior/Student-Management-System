@@ -5,6 +5,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import Footer from '@/Components/Footer.vue';
 import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
@@ -152,6 +153,8 @@ const showingNavigationDropdown = ref(false);
             <main class="px-4 md:flex-1 md:p-12" scroll-region>
                 <slot />
             </main>
+            <!-- footer -->
+            <Footer />
         </div>
     </div>
 </template>
