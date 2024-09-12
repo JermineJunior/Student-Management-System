@@ -18,7 +18,6 @@ class SubjectFactory extends Factory
     public function definition(): array
     {
         return [
-            //'class_id' => Classes::factory()->create() ,
             'name' => fake()->randomElement(['Arabic' , 'English' , 'History' ,'Science']),
             'full_mark' => 40,
         ];

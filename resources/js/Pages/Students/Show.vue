@@ -24,29 +24,29 @@ defineProps({
         <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-12">
           <div class="shadow sm:rounded-md sm:overflow-hidden">
             <div class="px-4 py-6 space-y-6 bg-white sm:p-6">
-              <h2 class="text-2xl">Student Information</h2>
+              <h2 class="text-2xl font-bold">Student Information</h2>
               <div class="flex items-start">
                 <!-- student info -->
-                <div class="mx-6">
-                  <p>Name : <span class="font-semibold"> {{ student.data.name }}</span></p>
-                  <p>Email : <span class="font-semibold"> {{ student.data.email }}</span></p>
-                  <p>class : <span class="font-semibold"> {{ student.data.class.name }}</span></p>
-                  <p>Date of Registration : <span class="font-semibold"> {{ student.data.created_at_formatted }}</span>
+                <div class="mx-6 py-4">
+                  <p class="p-2 border" >Name : <span class="font-semibold text-indigo-800 "> {{ student.data.name }}</span></p>
+                  <p class="p-2 border" >Email : <span class="font-semibold text-indigo-800 "> {{ student.data.email }}</span></p>
+                  <p class="p-2 border" >class : <span class="font-semibold text-indigo-800 "> {{ student.data.class.name }}</span></p>
+                  <p class="p-2 border" >Date of Registration : <span class="font-semibold text-indigo-800 "> {{ student.data.created_at_formatted }}</span>
                   </p>
                 </div>
                 <!-- student parent info -->
-                <div class="mx-6">
-                  <div>
-                    Parent Name : <span class="font-semibold"> {{ student.data.parent.parent_name }}</span>
+                <div class="mx-6 py-4">
+                  <div class="p-2 border" >
+                    Parent Name : <span class="font-semibold text-indigo-800 "> {{ student.data.parent.parent_name }}</span>
                   </div>
-                  <div>
-                    Parent Email : <span class="font-semibold"> {{ student.data.parent.parent_email }}</span>
+                  <div class="p-2 border" >
+                    Parent Email : <span class="font-semibold text-indigo-800 "> {{ student.data.parent.parent_email }}</span>
                   </div>
-                  <div>
-                    Parent contact : <span class="font-semibold"> {{ student.data.parent.phone }}</span>
+                  <div class="p-2 border" >
+                    Parent contact : <span class="font-semibold text-indigo-800 "> {{ student.data.parent.phone }}</span>
                   </div>
-                  <div>
-                    Parent Address : <span class="font-semibold"> {{ student.data.parent.address }}</span>
+                  <div class="p-2 border" >
+                    Parent Address : <span class="font-semibold text-indigo-800 "> {{ student.data.parent.address }}</span>
                   </div>
                 </div>
               </div>

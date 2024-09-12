@@ -170,13 +170,14 @@ const deleteStudent = (id) => {
                                                 <th scope="col" class="relative py-3.5 pr-4 pl-3 sm:pr-6" />
                                             </tr>
                                         </thead>
-                                        <div v-if="students.data.length == 0"
-                                            class="p-2 m-4 rounded-lg bg-yellow-500/10">
-                                            <p class="italic font-bold text-gray-800">
-                                                NO Results Found!
-                                            </p>
+
+                                       <div v-if="students.data.length == 0" class="m-6 p-4 text-center space-x-2 text-center bg-gray-100">
+                                          <h3 class="text-xl font-medium mt-4 text-gray-700">Student not found</h3>
+                                          <p class="text-gray-600  mt-2">
+                                            The studen you are looking for could not be located.
+                                          </p>
                                         </div>
-                                        <tbody class="bg-white divide-y divide-gray-200">
+                                        <tbody v-else class="bg-white divide-y divide-gray-200">
                                             <tr v-for="(student, index) in students.data" :key="student.id"
                                                 class="transition-colors duration-300 ease-in-out hover:bg-gray-200">
                                                 <td
