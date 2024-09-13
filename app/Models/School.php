@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\SchoolStatus;
+use App\Models\Teacher;
 
 class School extends Model
 {
@@ -22,5 +23,10 @@ class School extends Model
                 "status" => SchoolStatus::IN_ACTIVE,
             ]);
         });
+    }
+
+    public function teachers()
+    {
+        return $this->hasMany(Teacher::class);
     }
 }

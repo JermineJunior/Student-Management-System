@@ -17,8 +17,7 @@ class SchoolFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' =>  'School' . fake()->randomElement([0, 1,2,3,4,5,6]),
-            'description'  => fake()->paragraph(),
+            'description'  => 'School Description',
         ];
     }
 }

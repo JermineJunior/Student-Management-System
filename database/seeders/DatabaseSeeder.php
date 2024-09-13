@@ -16,9 +16,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UsersSeeder::class,
+            SchoolSeeder::class,
             ClassesSeeder::class,
             SubjectsSeeder::class
         ]);
-        Teacher::factory(36)->create();
+
     }
 }
