@@ -35,7 +35,11 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
-            ]
+            ],
+            'flash' => [
+                 'message' => fn () => $request->session()->get('message'),
+                 'date' => now()->toTimeString()
+            ],
         ];
     }
 }

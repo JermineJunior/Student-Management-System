@@ -19,7 +19,12 @@ class SchoolController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with([
+            'message' => [
+                'type' => 'success',
+                'message' => 'School Added Successfuly'
+            ]
+        ]);
     }
 
     public function update(Request $request, School $school)

@@ -1,14 +1,22 @@
 <script setup>
-import { ref } from 'vue';
+import { ref,watch } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import Footer from '@/Components/Footer.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link , usePage } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
+
+const messages = ref([]);
+
+let page = usePage();
+
+watch(() => page.props.flash.message, (next) => {
+  messages.value.push(next);
+});
 </script>
 
 <template>
@@ -151,6 +159,16 @@ const showingNavigationDropdown = ref(false);
 
             <!-- Page Content -->
             <main class="px-4 md:flex-1 md:p-12" scroll-region>
+                <div class="flash-message-container fixed flex flex-col justify-between items-center top-1 right-1 z-50">
+                   <flash-message
+                      v-if="messages.length > 0"
+                      v-for="(message, index) in messages"
+                      :key="index"
+                      :message="message.message"
+                      :time="page.props.flash.date"
+                      :type="message.type"
+                    />
+                 </div>
                 <slot />
             </main>
             <!-- footer -->

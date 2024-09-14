@@ -21,7 +21,12 @@ class ClassesController extends Controller
 
         Classes::create($validatedDate);
 
-        return redirect()->route('classes.index');
+        return redirect()->route('classes.index')->with([
+            'message' => [
+                'type' => 'success',
+                'message' => 'Class Room Added Successfuly'
+            ]
+        ]);
     }
 
     public function edit(Classes $class)
@@ -37,13 +42,23 @@ class ClassesController extends Controller
         ]);
         $class->update($validatedDate);
 
-        return redirect()->route('classes.index');
+        return redirect()->route('classes.index')->with([
+            'message' => [
+                'type' => 'success',
+                'message' => 'Class Room updated Successfuly'
+            ]
+        ]);
     }
 
     public function destroy(Classes $class)
     {
         $class->delete();
 
-        return redirect()->route('classes.index');
+        return redirect()->route('classes.index')->with([
+            'message' => [
+                'type' => 'success',
+                'message' => 'Class Room is removed Successfuly'
+            ]
+        ]);
     }
 }
