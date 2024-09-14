@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\SchoolStatus;
+use App\Observers\SchoolObserver;
 use App\Models\Teacher;
 
 class School extends Model
@@ -13,16 +13,9 @@ class School extends Model
 
     protected $fillable = ["name", "description", "status"];
 
-    // deactivated all schools when activating one
-    public static function boot()
+    public function active()
     {
-        parent::boot();
-
-        static::updating(function (School $school) {
-            School::where("id", "!=", $school->id)->update([
-                "status" => SchoolStatus::IN_ACTIVE,
-            ]);
-        });
+       return $this->status == 1 ; //bool
     }
 
     public function teachers()

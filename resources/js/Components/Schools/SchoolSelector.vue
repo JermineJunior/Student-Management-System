@@ -88,6 +88,7 @@ const createSchool = () => {
         onSuccess: () => {
             showCreateModal.value = false;
             createForm.reset();
+            router.visit(route('dashboard'));
         },
         onError: () => {
             // Focus on the name input if there's an error
