@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateTeacherRequest;
 use App\Http\Resources\StudentResource;
 use App\Http\Resources\TeacherResource;
 use App\Models\Teacher;
+use App\Models\School;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -44,9 +45,16 @@ class TeacherController extends Controller
 
   public function store(CreateTeacherRequest $request)
   {
-    Teacher::create($request->validated());
+    $activeSchool = School::where('status' , '=' , 1)->first();
+    $newTeacher = [...$request->validated() , 'school_id'  => $activeSchool->id];
+    Teacher::create($newTeacher);
 
-    return redirect()->route('teachers.index');
+    return redirect()->route('teachers.index')->with([
+            'message' => [
+                'type' => 'success',
+                'message' => 'Teacher Added Successfuly'
+            ]
+        ]);
   }
 
   public function edit(Teacher $teacher)
@@ -58,7 +66,8 @@ class TeacherController extends Controller
 
   public function update(UpdateTeacherRequest $request, Teacher $teacher)
   {
-    $teacher->update($request->validated());
+
+    $teacher->update([...$request->validated(), 'school_id'  => $teacher->school_id]);
 
     return redirect()->route('teachers.index');
   }

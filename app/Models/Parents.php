@@ -23,8 +23,10 @@ class Parents extends Model
         $id = $exParent[0]->id;
         if ($id) {
             return $id;
-        } //creating a new parent
-        $newParent = Parents::create($data);
-        return $newParent->id;
+        }
+        else{//creating a new parent
+            $newParent = Parents::create($data);
+            return $newParent->id;
+        }
     }
 }

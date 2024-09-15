@@ -59,7 +59,12 @@ class StudentController extends Controller
         
         Student::create($studentData);
 
-        return redirect()->route('students.index');
+        return redirect()->route('students.index')->with([
+            'message' => [
+                'type' => 'success',
+                'message' => 'Student Added Successfuly'
+            ]
+        ]);
     }
 
     public function edit(Student $student)
