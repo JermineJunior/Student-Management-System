@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School;
 use App\Models\Student;
 use App\Models\Classes;
 use Illuminate\Http\Request;
@@ -53,9 +54,10 @@ class StudentController extends Controller
             'address'  => request('address'),
             'house_number' => request('house_number')
         ];
+        $active_school = School::where('status' , '=' , 1)->first();
         $parent_id =  $this->createOrUpdateParent();
-        //validate student data
-        $studentData = [...$request->validated(), "parent_id" => $parent_id];
+
+        $studentData = [...$request->validated(),"school_id" => $active_school->id,"parent_id" => $parent_id];
         Student::create($studentData);
 
         return redirect()->route('students.index');

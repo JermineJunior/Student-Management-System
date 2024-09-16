@@ -19,14 +19,13 @@ class Parents extends Model
     public static function createOrUpdate($data = [])
     {
         //finding a matching existing parent
-        $exParent = Parents::where('parent_name', '=', $data['parent_name'])->get();
-        $id = $exParent[0]->id;
-        if ($id) {
-            return $id;
-        }
-        else{//creating a new parent
-            $newParent = Parents::create($data);
-            return $newParent->id;
-        }
+        $exParent = Parents::where('parent_name', '=', $data['parent_name'])->first();
+
+        if($exParent->id) {
+             return $exParent->id;
+         }
+
+         $newParent = Parents::insert($data);
+         return $newParent->id;
     }
 }
