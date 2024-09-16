@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\School;
 use App\Models\Parents;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

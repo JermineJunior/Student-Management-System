@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
+
 class Student extends Model
 {
     use HasFactory;
@@ -14,6 +15,11 @@ class Student extends Model
     protected $fillable = ['name', 'email', 'class_id', 'parent_id'];
 
     protected $with = ['class', 'parent'];
+
+    public function school()
+    {
+        return $this->belongsTo(School::class);
+    }
 
     public function class()
     {

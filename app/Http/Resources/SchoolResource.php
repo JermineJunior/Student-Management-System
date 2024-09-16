@@ -20,7 +20,8 @@ class SchoolResource extends JsonResource
             'id'  =>  $this->id,
             'name'  => $this->name,
             'status'  => SchoolStatus::from($this->status)->value,
-            'status_label' => SchoolStatus::from($this->status)->label()
+            'status_label' => SchoolStatus::from($this->status)->label(),
+            'students'  =>  $this->students->count()
         ];
     }
 }

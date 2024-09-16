@@ -55,16 +55,10 @@ class StudentController extends Controller
         ];
         $parent_id =  $this->createOrUpdateParent();
         //validate student data
-        $studentData = [...$$request->validated(), "parent_id" => $parent_id];
-        
+        $studentData = [...$request->validated(), "parent_id" => $parent_id];
         Student::create($studentData);
 
-        return redirect()->route('students.index')->with([
-            'message' => [
-                'type' => 'success',
-                'message' => 'Student Added Successfuly'
-            ]
-        ]);
+        return redirect()->route('students.index');
     }
 
     public function edit(Student $student)

@@ -1,9 +1,12 @@
 <?php
 
 use App\Models\Teacher;
-use App\Models\User;
+use App\Models\School;
+
+
 
 describe('Teachers Crud', function () {
+    $school = School::factory()->create();
     test('Unauthenticated users cant view the Index page', function () {
         $response = $this->get('/teachers');
 
@@ -30,8 +33,9 @@ describe('Teachers Crud', function () {
         $response->assertStatus(200);
     });
 
-    test('authenticated users can add teachers', function () {
+    test('authenticated users can add teachers', function ($school) {
         $teacher = [
+            "school_id" =>  $school->id,
             'name' => 'Ahmed',
             'email' => 'ahmed@example.com',
             'phone' => '01234567890',
@@ -48,8 +52,9 @@ describe('Teachers Crud', function () {
         ]);
     });
 
-    test('authenticated users can modify teachers details', function () {
+    test('authenticated users can modify teachers details', function ($school) {
         $teacher = Teacher::factory()->create([
+            "school_id" =>  $school->id,
             'name' => 'Ali Omer',
             'email' => 'ali@example.com',
             'phone' => '01234567890',

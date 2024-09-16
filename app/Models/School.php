@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Observers\SchoolObserver;
-use App\Models\Teacher;
 
 class School extends Model
 {
@@ -16,6 +15,11 @@ class School extends Model
     public function active()
     {
        return $this->status == 1 ; //bool
+    }
+
+    public function students()
+    {
+        return $this->hasMany(Student::class);
     }
 
     public function teachers()

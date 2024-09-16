@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Classes;
 use App\Models\Student;
+use App\Models\School;
 use Illuminate\Database\Seeder;
 
 
@@ -25,7 +26,10 @@ class ClassesSeeder extends Seeder
                     ->count(10)
                     ->state(
                         function (array $attributes, Classes $class) {
-                            return ['class_id' => $class->id];
+                            return [
+                                'class_id' => $class->id,
+                                'school_id' =>  fake()->randomElement(School::all())->id,
+                         ];
                         }
                     )
             )
