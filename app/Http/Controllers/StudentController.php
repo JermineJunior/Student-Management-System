@@ -75,10 +75,17 @@ class StudentController extends Controller
     }
     public function update(UpdateStudentRequest $request, Student $student)
     {
+        $activeSchool = School::where('status' , '=' , 1)->first();
+
         //update the record with the validated user data
-        $student->update($request->validated());
+        $student->update([...$request->validated(), "school_id" => $activeSchool->id]);
         //redirect to see the changes implemented
-        return redirect()->route('students.index');
+        return redirect()->route('students.index')->with([
+            'message' => [
+                'type' => 'success',
+                'message' => 'Student updated Successfuly'
+            ]
+        ]);
     }
 
     public function destroy(Student $student)
