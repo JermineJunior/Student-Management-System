@@ -40,7 +40,7 @@ Route::middleware("auth")->group(function () {
     //Teacher Routes
     Route::resource('/teachers', TeacherController::class);
     //Classes Route
-    Route::resource('/classes', ClassesController::class)->except(['show', 'create']);
+    Route::resource('/classes', ClassesController::class)->except(['show', 'edit' , 'create']);
     //Subjects Routes
     Route::resource('/subjects', SubjectController::class)->except(['index', 'edit']);
 

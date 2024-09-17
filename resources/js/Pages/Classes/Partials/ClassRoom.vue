@@ -1,9 +1,11 @@
 <script setup >
-import { ref }  from 'vue';
+import { ref,watch }  from 'vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import InputError from "@/Components/InputError.vue";
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
+import debounce from 'lodash.debounce';
+
 
 let props = defineProps({
     classRoom: {
@@ -18,9 +20,20 @@ let editing = ref(false)
 
 let Class = props.classRoom;
 
-const form = useForm({
+const editingForm = useForm({
   name: Class.name
-})
+});
+
+let editName = debounce(() => {
+    editingForm.put(route("classes.update", Class.id), {
+        preserveScroll: true,
+    });
+}, 500);
+//watch the form for changes
+watch(() => editingForm.isDirty, () => {
+    editName()
+});
+
 
 </script>
 
@@ -32,13 +45,13 @@ const form = useForm({
     <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
      <template v-if="editing">
          <InputLabel for="name" value="Class Name" class="sr-only" />
-            <TextInput v-model="form.name" id="name"
-              class="block px-3 py-3 my-3 w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            <TextInput v-model="editingForm.name" id="name"
+              class="w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
              :class="{
             'text-red-900 focus:ring-red-500 focus:border-red-500 border-red-300':
-              form.errors.name,
+              editingForm.errors.name,
           }" required />
-             <InputError class="mt-2" :message="form.errors.name" />
+             <InputError class="mt-2" :message="editingForm.errors.name" />
       </template>
       <template v-else>
             {{ Class.name }}

@@ -67,7 +67,7 @@ let editName = debounce(() => {
 //watch the form for changes
 watch(() => editingForm.isDirty, () => {
     editName()
-})
+});
 
 const deleteForm = useForm({})
 const deleteSchool = (id) => {

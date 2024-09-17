@@ -29,12 +29,6 @@ class ClassesController extends Controller
         ]);
     }
 
-    public function edit(Classes $class)
-    {
-        $Class =  ClassesResource::make($class);
-        return inertia('Classes/Edit', ['Class' => $Class]);
-    }
-
     public function update(Classes $class)
     {
         $validatedDate = request()->validate([
@@ -42,7 +36,7 @@ class ClassesController extends Controller
         ]);
         $class->update($validatedDate);
 
-        return redirect()->route('classes.index')->with([
+        return back()->with([
             'message' => [
                 'type' => 'success',
                 'message' => 'Class Room updated Successfuly'
