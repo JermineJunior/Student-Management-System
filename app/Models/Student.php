@@ -12,7 +12,7 @@ class Student extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'class_id', 'parent_id'];
+    protected $guarded = [];
 
     protected $with = ['class', 'parent'];
 

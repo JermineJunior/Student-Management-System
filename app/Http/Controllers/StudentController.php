@@ -54,11 +54,12 @@ class StudentController extends Controller
             'address'  => request('address'),
             'house_number' => request('house_number')
         ];
-        $active_school = School::where('status' , '=' , 1)->first();
+        $activeSchool = School::where('status' , '=' , 1)->first();
         $parent_id =  $this->createOrUpdateParent();
+        //construct the complete student data
+         $validatedData = [...$request->validated() , 'school_id' => $activeSchool->id , 'parent_id' => $parent_id ];
 
-        $studentData = [...$request->validated(),"school_id" => $active_school->id,"parent_id" => $parent_id];
-        Student::create($studentData);
+        Student::create($validatedData);
 
         return redirect()->route('students.index');
     }

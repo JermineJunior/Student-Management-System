@@ -21,11 +21,11 @@ class Parents extends Model
         //finding a matching existing parent
         $exParent = Parents::where('parent_name', '=', $data['parent_name'])->first();
 
-        if($exParent->id) {
+        if($exParent) {
              return $exParent->id;
          }
 
-         $newParent = Parents::insert($data);
+         $newParent = Parents::create($data);
          return $newParent->id;
     }
 }
