@@ -21,7 +21,7 @@ class ClassesController extends Controller
 
         Classes::create($validatedDate);
 
-        return redirect()->route('classes.index')->with([
+          return Redirect::route('classes.index')->with([
             'message' => [
                 'type' => 'success',
                 'message' => 'Class Room Added Successfuly'
@@ -36,7 +36,7 @@ class ClassesController extends Controller
         ]);
         $class->update($validatedDate);
 
-        return back()->with([
+        return redirect('/classes')->with([
             'message' => [
                 'type' => 'success',
                 'message' => 'Class Room updated Successfuly'
@@ -51,7 +51,7 @@ class ClassesController extends Controller
         return redirect()->route('classes.index')->with([
             'message' => [
                 'type' => 'success',
-                'message' => 'Class Room is removed Successfuly'
+                'message' => 'Class Room was removed Successfuly'
             ]
         ]);
     }

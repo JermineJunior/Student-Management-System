@@ -15,18 +15,6 @@ defineProps({
   }
 });
 
-
-
-const deleteForm = useForm({});
-
-const deleteClass = (id) => {
-  if (confirm("Are you sure you want to delete this class?")) {
-    deleteForm.delete(route("classes.destroy", id), {
-      preserveScroll: true,
-    });
-  }
-};
-
 </script>
 
 <template>
