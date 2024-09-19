@@ -80,19 +80,19 @@ class StudentController extends Controller
         //update the record with the validated user data
         $student->update([...$request->validated(), "school_id" => $activeSchool->id]);
         //redirect to see the changes implemented
-        return redirect()->route('students.index')->with([
-            'message' => [
-                'type' => 'success',
-                'message' => 'Student updated Successfuly'
-            ]
-        ]);
+        return redirect()->route('students.index');
     }
 
     public function destroy(Student $student)
     {
         $student->delete();
 
-        return redirect()->route('students.index');
+        return redirect()->route('students.index')->with([
+            'message' => [
+                'type' => 'success',
+                'message' => 'A Student was removed Successfuly'
+            ]
+        ]);
     }
 
     protected function createOrUpdateParent()

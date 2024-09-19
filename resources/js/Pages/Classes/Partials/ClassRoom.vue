@@ -1,10 +1,10 @@
 <script setup >
-import { ref,reactive }  from 'vue';
-import { Head, Link, useForm,router } from '@inertiajs/vue3';
+import { ref,watch }  from 'vue';
+import { Link, useForm,router } from '@inertiajs/vue3';
 import InputError from "@/Components/InputError.vue";
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
-
+import debounce from 'lodash.debounce';
 
 let props = defineProps({
     classRoom: {
@@ -23,13 +23,17 @@ const editingForm = useForm({
   name: Class.name
 });
 
-let editName = () => {
-    editingForm.put(route("classes.update", Class.id), {
+let editName = debounce(() => {
+  editingForm.patch(`/classes/${Class.id}`, {
         preserveScroll: true,
-        //onSuccess: () => { router.visit('/classes') }
-    });
-};
+        onSuccess: () => { router.reload() },
+    })
+} , 600);
 
+
+watch (() =>  editingForm.isDirty , () => {
+    editName()
+})
 const deleteForm = useForm({});
 
 const deleteClass = (id) => {
@@ -81,13 +85,10 @@ const deleteClass = (id) => {
       {{ Class.addedOn }}
     </td>
     <td class="relative py-4 pr-4 pl-3 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-        <button @click="editing = true" class="text-indigo-600  hover:text-indigo-900">
-            <span v-if="editing" class="flex items-center space-x-2">
-                <button @click="editName">Done</button>
-            </span>
+        <button @click="editing = !editing" class="text-indigo-600  hover:text-indigo-900">
+            <span v-if="editing">Done</span>
             <span v-else>Edit</span>
          </button>
-         <button v-if="editing" class="pl-2 text-sm text-gray-700" @click="editing = false">cancel</button>
       <button @click="
         deleteClass(
           Class.id,
@@ -96,5 +97,5 @@ const deleteClass = (id) => {
         Delete
       </button>
     </td>
-         </tr>
+</tr>
 </template>
