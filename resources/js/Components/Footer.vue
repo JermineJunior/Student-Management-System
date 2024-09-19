@@ -1,4 +1,5 @@
 <template>
+<scrollUp />
  <footer class="bg-white ">
         <div
             class="max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex flex-col items-center justify-between mx-auto space-y-4 sm:space-y-0 sm:flex-row">
@@ -45,5 +46,6 @@
 
 <script setup >
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import scrollUp from './scrollUp.vue';
 import {Link}  from '@inertiajs/vue3';
 </script>
