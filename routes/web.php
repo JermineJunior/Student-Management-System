@@ -8,10 +8,8 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UpdateSchoolController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\AttendanceController;
 use Illuminate\Support\Facades\Route;
-
-use Inertia\Inertia;
 
 
 Route::get("/", function () {
@@ -40,7 +38,7 @@ Route::middleware("auth")->group(function () {
     //Teacher Routes
     Route::resource('/teachers', TeacherController::class);
     //Classes Route
-    Route::resource('/classes', ClassesController::class)->except(['show', 'edit' , 'create']);
+    Route::resource('/classes', ClassesController::class)->except(['show', 'edit', 'create']);
     //Subjects Routes
     Route::resource('/subjects', SubjectController::class)->except(['index', 'edit']);
 
@@ -49,6 +47,12 @@ Route::middleware("auth")->group(function () {
     Route::patch('/schools/{school}', [SchoolController::class, 'update'])->name('schools.update');
     Route::delete('/schools/{school}', [SchoolController::class, 'destroy'])->name('schools.destroy');
     Route::patch('/schools/{school}/activate', UpdateSchoolController::class)->name('schools.edit');
+
+    //Attendance Routes
+    Route::get('/students/{class}/attendance', [AttendanceController::class, 'showAtendanceForm'])
+        ->name('attendance.showForm');
+    Route::post('/students/{class}/attendance', [AttendanceController::class, 'showAtendanceForm'])
+        ->name('attendance.store');
 });
 
 require __DIR__ . "/auth.php";
