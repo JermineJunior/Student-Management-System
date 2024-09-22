@@ -28,9 +28,14 @@ let currentDate = `${day}-${month}-${year}`;
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Class Room Attendance
-            </h2>
+            <div class="flex justify-between items-center">
+                <h2 class="text-xl font-semibold leading-tight text-gray-800">
+                    Class Room Attendance
+                </h2>
+                <div class="text-sm text-gray-700">
+                    <span>Data: {{ currentDate }}</span>
+                </div>
+            </div>
         </template>
         <div class="py-10 bg-gray-100">
             <div class="mx-auto max-w-7xl">
@@ -44,7 +49,13 @@ let currentDate = `${day}-${month}-${year}`;
                                 A list of all the students in {{ props.classroom.name }}.
                             </p>
                         </div>
-
+                        <div class="mt-4 text-sm sm:mt-0 sm:ml-16 sm:flex-none">
+                            <Link
+                                class="inline-flex items-center px-4 py-2 mr-4 text-sm font-medium text-indigo-700 bg-indigo-100 rounded-md border border-transparent hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                :href="route('classes.index')">
+                            go back
+                            </Link>
+                        </div>
                     </div>
 
                     <!-- displaying classes info -->
@@ -112,7 +123,8 @@ let currentDate = `${day}-${month}-${year}`;
                                     </table>
                                     <div class="flex justify-end p-4 w-full">
                                         <div class="flex justify-end w-full">
-                                            <button>Save</button>
+                                            <button
+                                                class="inline-flex items-center px-6 py-2 mr-4 text-sm font-bold text-white bg-indigo-600 rounded-md border border-transparent hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save</button>
                                         </div>
                                     </div>
                                 </div>
