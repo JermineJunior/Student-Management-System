@@ -96,6 +96,11 @@ return [
             'search_path' => 'public',
             'sslmode' => 'prefer',
         ],
+        'memory_testing' => [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ],
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
