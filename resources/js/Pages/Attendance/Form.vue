@@ -1,6 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import { reactive, ref, onMounted } from 'vue';
+import { router } from '@inertiajs/vue3'
 
 const props = defineProps({
     classroom: {
@@ -20,6 +22,38 @@ let year = date.getFullYear();
 
 // This arrangement can be altered based on how we want the date's format to appear.
 let currentDate = `${day}-${month}-${year}`;
+
+// State to hold attendance data
+const attendance = reactive({});
+const processing = ref(false);
+const successMessage = ref(null);
+
+// Ref to hold success message
+const message = ref('');
+
+// Initialize attendance with default value (1 for present)
+onMounted(() => {
+  props.students.forEach(student => {
+    attendance[student.id] = 1; // Default to present
+  });
+});
+// Function to handle form submission
+const submitAttendance = () => {
+  const formData = Object.keys(attendance).map(studentId => ({
+    student_id: studentId,
+    status: attendance[studentId] // 1 for present (checked), 0 for absent (unchecked)
+  }));
+
+  router.post(`/students/${props.classroom.id}/attendance`, { attendance: formData }, {
+    onSuccess: () => {
+      successMessage.value = 'Attendance successfully recorded!';
+    },
+    onError: (error) => {
+      console.error(error);
+    }
+  });
+};
+
 </script>
 
 <template>
@@ -62,6 +96,7 @@ let currentDate = `${day}-${month}-${year}`;
                     <div class="flex flex-col mt-8">
                         <div class="overflow-x-auto -mx-4 -my-2 sm:-mx-6 lg:-mx-8">
                             <div class="inline-block py-2 min-w-full align-middle md:px-6 lg:px-8">
+                            <form @submit.prevent="submitAttendance">
                                 <div
                                     class="overflow-hidden relative ring-1 ring-black ring-opacity-5 shadow md:rounded-lg">
                                     <table class="min-w-full divide-y divide-gray-300">
@@ -111,11 +146,17 @@ let currentDate = `${day}-${month}-${year}`;
                                                 </td>
 
                                                 <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                    <div class="flex items-center">
-                                                        <input checked id="checked-checkbox" type="checkbox" value=""
-                                                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 dark:bg-gray-700 dark:border-gray-600">
-                                                        <label for="checked-checkbox"
-                                                            class="text-sm font-medium text-gray-900 ms-2 dark:text-gray-300">Present</label>
+                                                    <div class="flex items-center space">
+                                                     <input
+                                                        type="checkbox"
+                                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded "
+                                                        :name="'attendance_' + student.id"
+                                                        v-model="attendance[student.id]"
+                                                        :true-value="1"
+                                                        :false-value="0"
+                                                        :checked=true
+                                                      />
+                                                      <label for="checked-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Present</label>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -124,11 +165,15 @@ let currentDate = `${day}-${month}-${year}`;
                                     <div class="flex justify-end p-4 w-full">
                                         <div class="flex justify-end w-full">
                                             <button
-                                                class="inline-flex items-center px-6 py-2 mr-4 text-sm font-bold text-white bg-indigo-600 rounded-md border border-transparent hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save</button>
+                                                type="submit"
+                                                class="inline-flex items-center px-6 py-2 mr-4 text-sm font-bold text-white bg-indigo-600 rounded-md border border-transparent hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                                :disabled="processing"
+                                                >Submit Attendance</button>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>

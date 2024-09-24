@@ -51,7 +51,7 @@ Route::middleware("auth")->group(function () {
     //Attendance Routes
     Route::get('/students/{class}/attendance', [AttendanceController::class, 'showAtendanceForm'])
         ->name('attendance.showForm');
-    Route::post('/students/{class}/attendance', [AttendanceController::class, 'showAtendanceForm'])
+    Route::post('/students/{class}/attendance', [AttendanceController::class, 'storeAttendance'])
         ->name('attendance.store');
 });
 
