@@ -3,6 +3,7 @@
 use App\Models\Classes;
 use App\Models\Parents;
 use App\Models\Student;
+use App\Models\School;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
@@ -23,7 +24,12 @@ describe('student crud', function () {
     });
 
     test('users can view student details in the index page', function () {
+    $school = School::factory()->create([
+        'name'  => 'school one',
+        'description'  => 'School Description'
+    ]);
         $student = Student::factory()->create([
+            'school_id'  => $school->id,
             'parent_id' =>  1,
             'name' => 'john doe',
             'email' => 'john@example.com',
@@ -44,11 +50,16 @@ describe('student crud', function () {
         $response->assertStatus(200);
     });
     test('authenticated users can add students', function () {
+        $school = School::factory()->create([
+            'name'  => 'school one',
+            'description'  => 'School Description'
+        ]);
         $parent = Parents::factory()->create();
         $classroom = Classes::factory()->create();
         $student = [
             'name' => 'jack reacher',
             'email' => 'jac@ex.com',
+            'school_id'  => $school->id,
             'class_id' => $classroom->id,
             'parent_id' => $parent->id,
             'parent_name' => $parent->parent_name,

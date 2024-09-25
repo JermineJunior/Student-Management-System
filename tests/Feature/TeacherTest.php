@@ -6,7 +6,6 @@ use App\Models\School;
 
 
 describe('Teachers Crud', function () {
-    $school = School::factory()->create();
     test('Unauthenticated users cant view the Index page', function () {
         $response = $this->get('/teachers');
 
@@ -20,7 +19,11 @@ describe('Teachers Crud', function () {
         $response->assertStatus(200);
     });
     test('authenticated users can view teachers details', function () {
-        $teacher = Teacher::factory()->create();
+         $school = School::factory()->create([
+            'name'  => 'school one',
+            'description'  => 'School Description'
+         ]);
+        $teacher = Teacher::factory()->create(['school_id' => $school->id]);
         $response = $this->signIn()->get('/teachers');
 
         $response->assertOk();
@@ -33,7 +36,11 @@ describe('Teachers Crud', function () {
         $response->assertStatus(200);
     });
 
-    test('authenticated users can add teachers', function ($school) {
+    test('authenticated users can add teachers', function () {
+        $school = School::factory()->create([
+            'name'  => 'school one',
+            'description'  => 'School Description'
+        ]);
         $teacher = [
             "school_id" =>  $school->id,
             'name' => 'Ahmed',
@@ -52,7 +59,11 @@ describe('Teachers Crud', function () {
         ]);
     });
 
-    test('authenticated users can modify teachers details', function ($school) {
+    test('authenticated users can modify teachers details', function () {
+        $school = School::factory()->create([
+            'name'  => 'school one',
+            'description'  => 'School Description'
+         ]);
         $teacher = Teacher::factory()->create([
             "school_id" =>  $school->id,
             'name' => 'Ali Omer',
@@ -80,7 +91,11 @@ describe('Teachers Crud', function () {
     });
 
     test('teachers can be deleted', function () {
-        $teacher = Teacher::factory()->create();
+         $school = School::factory()->create([
+            'name'  => 'school one',
+            'description'  => 'School Description'
+         ]);
+        $teacher = Teacher::factory()->create(['school_id' => $school->id]);
         $deleteResponse = $this->signIn()->delete('/teachers/' . $teacher['id'], $teacher->toArray());
         $deleteResponse
             ->assertSessionHasNoErrors()
