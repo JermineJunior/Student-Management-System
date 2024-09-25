@@ -49,10 +49,12 @@ Route::middleware("auth")->group(function () {
     Route::patch('/schools/{school}/activate', UpdateSchoolController::class)->name('schools.edit');
 
     //Attendance Routes
-    Route::get('/students/{class}/attendance', [AttendanceController::class, 'showAtendanceForm'])
-        ->name('attendance.showForm');
-    Route::post('/students/{class}/attendance', [AttendanceController::class, 'storeAttendance'])
-        ->name('attendance.store');
+    //store attendance
+    Route::get('/students/{class}/attendance', [AttendanceController::class, 'showAtendanceForm'])->name('attendance.showForm');
+    Route::post('/students/{class}/attendance', [AttendanceController::class, 'storeAttendance'])->name('attendance.store');
+    //fetch attendance
+    Route::get('/attendance', [AttendanceController::class, 'attendanceForm'])->name('attendance.form');
+    Route::post('/attendance', [AttendanceController::class, 'fetchAttendance'])->name('attendance.fetch');
 });
 
 require __DIR__ . "/auth.php";

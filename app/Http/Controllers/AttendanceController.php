@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Resources\ClassesResource;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\Classes;
@@ -10,6 +12,49 @@ use Inertia\Inertia;
 
 class AttendanceController extends Controller
 {
+    // Display the form to select class and date
+    public function attendanceForm()
+    {
+        // Fetch all classes for the dropdown selection
+        $classes = ClassesResource::collection(Classes::all());
+
+        return Inertia::render('Attendance/Search', [
+            'classes' => $classes,
+            'attendances' => [],
+            'attendanceDate' => null,
+            'selectedClass' => null
+        ]);
+    }
+
+     // Fetch the attendance for a specific class and date
+    public function fetchAttendance(Request $request)
+    {
+        // Validate the form input
+        $request->validate([
+            'class_id' => 'required|exists:classes,id',
+            'date' => 'required|date'
+        ]);
+
+        $classId = $request->input('class_id');
+        $date = Carbon::parse($request->input('date'));
+
+        // Fetch the class and students
+        $class = Classes::with('students')->findOrFail($classId);
+        // Fetch attendance records for this class and date
+        $attendances = Attendance::where('class_id', $classId)
+            ->whereDate('date', $date)
+            ->get()
+            ->keyBy('student_id');  // Organize by student ID for easier lookup
+
+        // Return the data to the same view
+        return Inertia::render('Attendance/Search', [
+            'classes' => ClassesResource::collection(Classes::all()),
+            'class' => $class,
+            'attendances' => $attendances,
+            'attendanceDate' => $date->toDateString(),
+            'selectedClass' => $classId
+        ]);
+    }
     public function showAtendanceForm(Classes $class)
     {
         $students = $class->students;
