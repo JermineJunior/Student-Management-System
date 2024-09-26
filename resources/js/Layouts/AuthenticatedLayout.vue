@@ -48,6 +48,9 @@ watch(() => page.props.flash.message, (next) => {
                                 <NavLink :href="route('classes.index')" :active="route().current('classes.index')">
                                     Classes
                                 </NavLink>
+                                <NavLink :href="route('attendance.form')" :active="route().current('attendance.form')">
+                                    Attendance
+                                </NavLink>
                             </div>
                         </div>
 

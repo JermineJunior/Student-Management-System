@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ClassesResource;
+use App\Http\Resources\StudentResource;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\Classes;
@@ -36,22 +37,22 @@ class AttendanceController extends Controller
         ]);
 
         $classId = $request->input('class_id');
-        $date = Carbon::parse($request->input('date'));
+        $date = $request->input('date');
 
         // Fetch the class and students
-        $class = Classes::with('students')->findOrFail($classId);
+        $class = Classes::where('id',$classId)->with('students')->first();
         // Fetch attendance records for this class and date
         $attendances = Attendance::where('class_id', $classId)
-            ->whereDate('date', $date)
+            ->where('date', $date)
             ->get()
             ->keyBy('student_id');  // Organize by student ID for easier lookup
-
         // Return the data to the same view
         return Inertia::render('Attendance/Search', [
             'classes' => ClassesResource::collection(Classes::all()),
             'class' => $class,
+            'students' => StudentResource::collection($class->students),
             'attendances' => $attendances,
-            'attendanceDate' => $date->toDateString(),
+            'attendanceDate' => $date,
             'selectedClass' => $classId
         ]);
     }
