@@ -70,4 +70,51 @@ describe('student crud', function () {
         $response = $this->signIn()->post('/students', $student);
         $response->assertSessionHasNoErrors();
     });
+
+    test('authenticated users can modify students' , function () {
+        $school = School::factory()->create([
+            'name'  => 'school one',
+            'description'  => 'School Description'
+        ]);
+        $parent = Parents::factory()->create();
+        $classroom = Classes::factory()->create();
+        $student = Student::factory()->create([
+            'name' => 'jack reacher',
+            'email' => 'jac@ex.com',
+            'school_id'  => $school->id,
+            'class_id' => $classroom->id,
+            'parent_id' => $parent->id,
+        ]);
+
+        $newStudent = [ 'name' => 'jack alison' ,  'class_id' => $classroom->id,  'email' => 'jac2@ex.com', ];
+        $updateResponse = $this->signIn()->put('/students/' . $student->id , $newStudent);
+
+        $updateResponse ->assertSessionHasNoErrors()
+            ->assertRedirect('/students');
+        $this->assertDatabaseHas('students', [
+             'name' => 'jack alison',
+             'email' => 'jac2@ex.com',
+        ]);
+    });
+
+    test('authenticated users can delete students' , function(){
+        $school = School::factory()->create([
+            'name'  => 'school one',
+            'description'  => 'School Description'
+        ]);
+        $parent = Parents::factory()->create();
+        $classroom = Classes::factory()->create();
+        $student = Student::factory()->create([
+            'name' => 'jack reacher',
+            'email' => 'jac@ex.com',
+            'school_id'  => $school->id,
+            'class_id' => $classroom->id,
+            'parent_id' => $parent->id,
+        ]);
+
+        $deleteResponse = $this->signIn()->delete('/students/' . $student->id, $student->toArray());
+        $deleteResponse
+            ->assertSessionHasNoErrors()
+            ->assertRedirect('/students');
+    });
 });

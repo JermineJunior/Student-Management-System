@@ -31,7 +31,7 @@
 
         <!-- Attendance Display -->
         <div class="my-6" v-if="attendanceDate && props.students.data.length > 0">
-          <h2 class="text-lg py-4 font-semibold text-gray-900" >Attendance for Class: {{ props.class.name }} on {{ attendanceDate }}</h2>
+          <h2 class="text-lg py-4 font-semibold text-gray-900" >Attendance for Class: {{ props.students.data[0].class.name }} on {{ attendanceDate }}</h2>
           <table class="min-w-full divide-y divide-gray-300">
             <thead class="bg-gray-50">
               <tr>
