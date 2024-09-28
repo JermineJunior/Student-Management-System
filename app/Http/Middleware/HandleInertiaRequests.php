@@ -2,10 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Resources\SchoolResource;
-use App\Models\School;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Carbon\Carbon;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -38,7 +37,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'flash' => [
                  'message' => fn () => $request->session()->get('message'),
-                 'date' => now()->toTimeString()
+                 'date' =>  Carbon::now()->toTimeString()
             ],
         ];
     }

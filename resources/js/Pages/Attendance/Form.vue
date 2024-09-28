@@ -93,9 +93,9 @@ const submitAttendance = () => {
                     </div>
 
                     <!-- displaying classes info -->
-                    <div class="flex flex-col mt-8">
-                        <div class="overflow-x-auto -mx-4 -my-2 sm:-mx-6 lg:-mx-8">
-                            <div class="inline-block py-2 min-w-full align-middle md:px-6 lg:px-8">
+                <div class="flex flex-col mt-8">
+                    <div class="overflow-x-auto -mx-4 -my-2 sm:-mx-6 lg:-mx-8">
+                        <div class="inline-block py-2 min-w-full align-middle md:px-6 lg:px-8" v-if="props.students.length > 0">
                             <form @submit.prevent="submitAttendance">
                                 <div
                                     class="overflow-hidden relative ring-1 ring-black ring-opacity-5 shadow md:rounded-lg">
@@ -174,6 +174,9 @@ const submitAttendance = () => {
 
                                 </div>
                                 </form>
+                            </div>
+                            <div v-else class="p-4 mb-4 text-sm text-red-600 rounded-lg " role="alert">
+                                <p class="font-medium mx-4" > The selected classroom dosent has any students !!! </p>
                             </div>
                         </div>
                     </div>

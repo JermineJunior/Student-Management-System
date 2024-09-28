@@ -25,10 +25,12 @@ const editingForm = useForm({
 
 let editName = debounce(() => {
     editingForm.patch(`/classes/${Class.id}`, {
-        preserveScroll: true,
-        onSuccess: () => { router.reload() },
+        onSuccess: () => {
+            router.visit(route('classes.index'))
+        },
+         preserveScroll: true,
     })
-}, 600);
+}, 700);
 
 
 watch(() => editingForm.isDirty, () => {
@@ -82,7 +84,8 @@ const deleteClass = (id) => {
         </td>
         <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
             <Link class="text-indigo-600 hover:text-indigo-800" :href="route('attendance.showForm', Class.id)">
-            attendance</Link>
+            <svg class="size-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="#4F46E5" stroke="#4F46E5"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g fill="none" fill-rule="evenodd" stroke="" stroke-linecap="round" stroke-linejoin="round" transform="translate(4 3)"> <path d="m3.5 1.5c-.42139382 0-1.08806048 0-2 0-.55228475 0-1 .44771525-1 1v11c0 .5522848.44771525 1 1 1h10c.5522847 0 1-.4477152 1-1v-11c0-.55228475-.4477153-1-1-1-.8888889 0-1.55555556 0-2 0"></path> <path d="m4.5.5h4c.55228475 0 1 .44771525 1 1s-.44771525 1-1 1h-4c-.55228475 0-1-.44771525-1-1s.44771525-1 1-1z"></path> <path d="m5.5 5.5h5"></path> <path d="m5.5 8.5h5"></path> <path d="m5.5 11.5h5"></path> <path d="m2.5 5.5h1"></path> <path d="m2.5 8.5h1"></path> <path d="m2.5 11.5h1"></path> </g> </g></svg>
+            </Link>
         </td>
         <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
             {{ Class.addedOn }}

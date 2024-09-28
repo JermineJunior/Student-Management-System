@@ -40,18 +40,15 @@
                 <th scope="col"
                     class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">Student Name</th>
                 <th scope="col"
-                    class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">Class Room</th>
-                <th scope="col"
                     class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">Date</th>
                 <th scope="col"
                     class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">Status</th>
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200" >
-              <tr v-for="(student , index) in props.students.data" :key="student.id" class="transition-colors duration-300 ease-in-out hover:bg-gray-200">
+              <tr v-for="(student , index) in props.students.data" :key="student.id">
                 <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6" >{{ index + 1 }}</td>
                 <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6" >{{ student.name }}</td>
-                <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6" >{{ student.class.name }}</td>
                 <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6" >{{ attendanceDate }}</td>
                 <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6" >
                   <span v-if="attendances[student.id]" :class="attendances[student.id].status ? 'text-indigo-600' : 'text-red-600'">
