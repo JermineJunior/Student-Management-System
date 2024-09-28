@@ -7,6 +7,8 @@ use App\Http\Resources\StudentResource;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\Classes;
+use App\Models\Student;
+use App\Models\School;
 use Carbon\Carbon;
 use Inertia\Inertia;
 
@@ -58,7 +60,7 @@ class AttendanceController extends Controller
     }
     public function showAtendanceForm(Classes $class)
     {
-        $students = $class->students;
+        $students = Student::where('school_id' ,School::activeSchool()->id)->where('class_id' , $class->id)->get();
 
         return Inertia('Attendance/Form' , [
             'classroom' => $class,
