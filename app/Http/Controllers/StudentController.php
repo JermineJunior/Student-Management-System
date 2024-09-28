@@ -54,7 +54,7 @@ class StudentController extends Controller
             'address'  => request('address'),
             'house_number' => request('house_number')
         ];
-        $activeSchool = School::where('status' , '=' , 1)->first();
+        $activeSchool = School::activeSchool();
         $parent_id =  $this->createOrUpdateParent();
         //construct the complete student data
          $validatedData = [...$request->validated() , 'school_id' => $activeSchool->id , 'parent_id' => $parent_id ];

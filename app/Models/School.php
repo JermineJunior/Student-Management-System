@@ -26,4 +26,9 @@ class School extends Model
     {
         return $this->hasMany(Teacher::class);
     }
+
+    public static function activeSchool()
+    {
+        return School::where('status' , '=' , '1')->first();
+    }
 }
