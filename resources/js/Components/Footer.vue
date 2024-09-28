@@ -30,7 +30,7 @@
                     </svg>
                 </a>
 
-                <a href="https://github.com/JermineJunior" class="mx-2 text-gray-600 transition-colors duration-300 hover:text-blue-500 "
+                <a href="https://github.com/JermineJunior/Student-Management-System" class="mx-2 text-gray-600 transition-colors duration-300 hover:text-blue-500 "
                     aria-label="Github">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">

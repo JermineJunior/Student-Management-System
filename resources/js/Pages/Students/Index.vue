@@ -18,7 +18,7 @@ defineProps({
 //capture the user`s search value
 let pageNumber = ref(1),
     searchTerm = ref(usePage().props.search ?? ""),
-    class_id = ref(usePage().props.class_id ?? "");
+    class_id = ref(usePage().props.class_id ?? "0");
 
 const pageNumberUpdated = (link) => {
     pageNumber.value = link.url.split("=")[1];
