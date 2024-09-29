@@ -1,12 +1,12 @@
 <script setup>
-import { ref,watch } from 'vue';
+import { ref, watch } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import Footer from '@/Components/Footer.vue';
-import { Link , usePage } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
 
@@ -15,13 +15,13 @@ const messages = ref([]);
 let page = usePage();
 
 watch(() => page.props.flash.message, (next) => {
-  messages.value.push(next);
+    messages.value.push(next);
 });
 </script>
 
 <template>
     <div>
-        <div class="min-h-screen flex flex-col bg-gray-100">
+        <div class="flex flex-col min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
                 <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -39,14 +39,14 @@ watch(() => page.props.flash.message, (next) => {
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
-                                <NavLink :href="route('students.index')" :active="route().current('students.index')">
-                                    Students
+                                <NavLink :href="route('classes.index')" :active="route().current('classes.index')">
+                                    Classes
                                 </NavLink>
                                 <NavLink :href="route('teachers.index')" :active="route().current('teachers.index')">
                                     Teachers
                                 </NavLink>
-                                <NavLink :href="route('classes.index')" :active="route().current('classes.index')">
-                                    Classes
+                                <NavLink :href="route('students.index')" :active="route().current('students.index')">
+                                    Students
                                 </NavLink>
                                 <NavLink :href="route('attendance.form')" :active="route().current('attendance.form')">
                                     Attendance
@@ -162,16 +162,11 @@ watch(() => page.props.flash.message, (next) => {
 
             <!-- Page Content -->
             <main class="px-4 md:flex-1 md:p-12" scroll-region>
-                <div class="flash-message-container fixed flex flex-col justify-between items-center top-1 right-1 z-50">
-                   <flash-message
-                      v-if="messages.length > 0"
-                      v-for="(message, index) in messages"
-                      :key="index"
-                      :message="message.message"
-                      :time="page.props.flash.date"
-                      :type="message.type"
-                    />
-                 </div>
+                <div
+                    class="flex fixed top-1 right-1 z-50 flex-col justify-between items-center flash-message-container">
+                    <flash-message v-if="messages.length > 0" v-for="(message, index) in messages" :key="index"
+                        :message="message.message" :time="page.props.flash.date" :type="message.type" />
+                </div>
                 <slot />
             </main>
             <!-- footer -->

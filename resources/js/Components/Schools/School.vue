@@ -1,8 +1,8 @@
 <template>
-    <td class="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
+    <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
         {{ id + 1 }}
     </td>
-    <td class="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
+    <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
         <template v-if="editing">
             <InputLabel for="name" class="sr-only" value="School Name" />
             <TextInput id="name" class="" v-model="editingForm.name" />
@@ -11,13 +11,13 @@
             {{ school.name }}
         </template>
     </td>
-    <td class="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
+    <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
         {{ school.students }}
     </td>
-    <td class="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
+    <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
         {{ school.status_label }}
     </td>
-    <td class="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
+    <td class="relative py-4 pr-4 pl-3 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
         <button @click="editing = !editing" class="text-indigo-600 hover:text-indigo-900">
             <span v-if="editing">Done</span>
             <span v-else>Edit</span>
@@ -62,6 +62,9 @@ const editingForm = useForm({
 let editName = debounce(() => {
     editingForm.patch(route('schools.update', props.school.id), {
         preserveScroll: true,
+        onSuccess: () => {
+            router.visit(route('dashboard'));
+        },
     });
 }, 500);
 //watch the form for changes
