@@ -12,6 +12,10 @@ class Classes extends Model
     protected $fillable = ['name'];
     protected $with = ['subjects'];
 
+    public function school()
+    {
+        return $this->belongsTo(School::class);
+    }
     public function students()
     {
         return $this->hasMany(Student::class, 'class_id');

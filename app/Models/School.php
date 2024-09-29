@@ -17,6 +17,10 @@ class School extends Model
        return $this->status == 1 ; //bool
     }
 
+    public function classes()
+     {
+        return $this->hasMany(Classes::class);
+    }
     public function students()
     {
         return $this->hasMany(Student::class);

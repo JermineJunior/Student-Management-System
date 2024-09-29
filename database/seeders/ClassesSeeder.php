@@ -19,7 +19,8 @@ class ClassesSeeder extends Seeder
             ->count(10)
             ->sequence(fn($sequence) => [
                 'name' => 'ClassRoom ' . $sequence->index +
-                    1
+                    1,
+                'school_id' =>  fake()->randomElement(School::all())->id,
             ])
             ->has(
                 Student::factory()
@@ -29,7 +30,7 @@ class ClassesSeeder extends Seeder
                             return [
                                 'class_id' => $class->id,
                                 'school_id' =>  fake()->randomElement(School::all())->id,
-                         ];
+                            ];
                         }
                     )
             )

@@ -14,8 +14,8 @@ class DashboardController extends Controller
     public function index()
     {
         $student_count =  Student::where('school_id' ,School::activeSchool()->id)->count();
-        $class_count = Classes::count();
-        $teacher_count = Teacher::where('school_id' ,School::activeSchool()->id)->count();
+        $class_count   =  Classes::where('school_id' ,School::activeSchool()->id)->count();
+        $teacher_count =  Teacher::where('school_id' ,School::activeSchool()->id)->count();
 
         $schools = SchoolResource::collection(
             School::all()->sortBy(function ($school) {
