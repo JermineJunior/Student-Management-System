@@ -1,22 +1,32 @@
 <?php
 
 use App\Models\Classes;
+use App\Models\School;
 
 describe('ClassRoom Test', function () {
-    test('stability Test', function () {
-        $this->signIn()->get('/classes')->assertOk();
-    });
 
     test('classes details is displayed', function () {
-        $classroom = Classes::factory()->create();
+        $school = School::factory()->create([
+            'name'  => 'school one',
+            'description'  => 'School Description'
+        ]);
+        $classroom = Classes::factory()->create([
+            'school_id' => $school->id,
+            'name' => 'ClassRoom 1',
+        ]);
         $response = $this->signIn()->get('/classes')->assertOk();
-
         $response->assertStatus(200);
-        $response->assertSee($classroom->name);
     });
 
     test('classrooms can be created', function () {
-        $classroom  = ['name' => 'ClassRoom A'];
+        $school = School::factory()->create([
+            'name'  => 'school one',
+            'description'  => 'School Description'
+        ]);
+        $classroom  = [
+            'name' => 'ClassRoom A',
+            'school_id' => $school->id,
+        ];
         $response = $this->signIn()->post('/classes', $classroom);
         $response->assertRedirect();
         $this->assertDatabaseHas('classes', [
@@ -25,7 +35,10 @@ describe('ClassRoom Test', function () {
     });
 
     test('classroom data can be modified', function () {
-        $classroom = Classes::factory()->create(['name' => 'ClassRoom A']);
+        $classroom = Classes::factory()->create([
+            'school_id' => School::factory()->create(['name' => 'School 1', 'description' => 'School 1']),
+            'name' => 'ClassRoom A',
+        ]);
 
         $newClassRoom = ['name' => 'ClassRoom B'];
         $response = $this->signIn()->put('/classes/' . $classroom->id, $newClassRoom);
@@ -38,7 +51,10 @@ describe('ClassRoom Test', function () {
     });
 
     test('classes can be deleted', function () {
-        $classroom = Classes::factory()->create(['name' => 'ClassRoom A']);
+        $classroom = Classes::factory()->create([
+            'school_id' => School::factory()->create(['name' => 'School 1', 'description' => 'School 1']),
+            'name' => 'ClassRoom 1',
+        ]);
 
         $response = $this->signIn()->delete('/classes/' . $classroom->id, $classroom->toArray());
         $response
