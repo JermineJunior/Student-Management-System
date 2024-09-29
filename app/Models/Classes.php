@@ -9,9 +9,13 @@ class Classes extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'school_id'];
     protected $with = ['subjects'];
 
+    public function school()
+    {
+        return $this->belongsTo(School::class);
+    }
     public function students()
     {
         return $this->hasMany(Student::class, 'class_id');

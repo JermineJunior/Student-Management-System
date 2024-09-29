@@ -20,7 +20,7 @@ class TeacherController extends Controller
     $this->applySearch($teacherQuery, request()->search);
 
     $teachers = TeacherResource::collection(
-      $teacherQuery->get()
+      $teacherQuery->where('school_id' , School::activeSchool()->id)->get()
     );
 
     return inertia('Teachers/Index', [

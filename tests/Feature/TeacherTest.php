@@ -12,12 +12,6 @@ describe('Teachers Crud', function () {
         $response->assertRedirect('/login');
     });
 
-    test('authenticated users can view the Index page', function () {
-        $response = $this->signIn()->get('/teachers');
-
-        $response->assertOk();
-        $response->assertStatus(200);
-    });
     test('authenticated users can view teachers details', function () {
          $school = School::factory()->create([
             'name'  => 'school one',

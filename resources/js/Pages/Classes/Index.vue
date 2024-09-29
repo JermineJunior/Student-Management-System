@@ -38,9 +38,6 @@ defineProps({
                             <p class="mt-2 text-sm text-gray-700">
                                 A list of all the Classes.
                             </p>
-                            <p class="mt-2 text-sm text-gray-500">
-                                {{ students }} Students total .
-                            </p>
                         </div>
 
                         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
