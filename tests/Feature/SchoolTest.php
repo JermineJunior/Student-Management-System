@@ -59,7 +59,10 @@ test('authenticated users can delete a school' , function (){
         'name'  => 'school one',
         'description'  => 'School Description'
     ]);
-
+    School::factory()->create([
+            'name'  => 'school 2',
+            'description'  => 'School Description'
+        ]);
     $deleteResponse = $this->signIn()->delete('/schools/' . $school->id, $school->toArray());
      $deleteResponse
             ->assertSessionHasNoErrors()

@@ -17,7 +17,7 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $studentQuery = Student::search($request);
-        $classes = ClassesResource::collection(Classes::all());
+        $classes =  ClassesResource::collection(Classes::where('school_id', School::activeSchool()->id)->get());
 
         return inertia('Students/Index', [
             'students' => StudentResource::collection(
@@ -30,7 +30,7 @@ class StudentController extends Controller
 
     public function create()
     {
-        $classes = ClassesResource::collection(Classes::all());
+        $classes =  ClassesResource::collection(Classes::where('school_id', School::activeSchool()->id)->get());
         return inertia('Students/Create', [
             "classes" => $classes
         ]);

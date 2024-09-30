@@ -30,6 +30,9 @@ class SchoolObserver
 
     public function deleting(School $school)
     {
+        if(School::count()<= 1){
+            throw new Exception("You cannot delete the last remaining school.");
+        }
         if($school->active()){
             //find the latest school
             $latestSchool = School::where('id' , '!=' ,$school->id)
@@ -38,6 +41,13 @@ class SchoolObserver
             if ($latestSchool) {
                 $latestSchool->update(['status' => 1]);
             }
+        }
+    }
+
+    public function forceDeleting(School $school)
+    {
+        if (School::count() <= 1) {
+            throw new Exception("You cannot delete the last remaining school."); // Prevent force deletion if it's the last record
         }
     }
 }
