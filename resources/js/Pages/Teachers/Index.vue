@@ -42,7 +42,7 @@ watch(
         })
     });
 const clearFilters = () => {
-    search.value = "";
+    search.value = null;
 };
 
 const deleteForm = useForm({});
