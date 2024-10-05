@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone');
-            $table->double('base_salary')->nullable();
+            $table->string('base_salary')->nullable()->default('40000');
             $table->date('date_of_recruit');
             $table->string('specialty')->nullable();
             $table->timestamps();

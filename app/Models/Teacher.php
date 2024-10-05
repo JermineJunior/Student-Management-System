@@ -9,7 +9,7 @@ class Teacher extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = ['school_id' , 'name' , 'email' , 'phone' , ''];
 
     public function school()
     {

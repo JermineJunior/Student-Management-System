@@ -66,7 +66,6 @@ class TeacherController extends Controller
 
   public function update(UpdateTeacherRequest $request, Teacher $teacher)
   {
-
     $teacher->update([...$request->validated(), 'school_id'  => $teacher->school_id]);
 
     return redirect()->route('teachers.index');
