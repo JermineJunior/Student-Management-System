@@ -10,6 +10,8 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UpdateSchoolController;
 use App\Http\Controllers\AttendanceController;
 use Illuminate\Support\Facades\Route;
+use App\Exports\StudentsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 Route::get("/", function () {
@@ -35,6 +37,9 @@ Route::middleware("auth")->group(function () {
 
     // Student Routes
     Route::resource("/students", StudentController::class);
+    Route::get('/export/class/{id}', function ($id) {
+        return Excel::download(new StudentsExport($id), 'students.xlsx');
+    });
     //Teacher Routes
     Route::resource('/teachers', TeacherController::class);
     //Classes Route

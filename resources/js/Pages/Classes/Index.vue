@@ -72,6 +72,10 @@ defineProps({
                                                 </th>
                                                 <th scope="col"
                                                     class="px-3 py-3.5 text-sm font-semibold text-left text-gray-900">
+                                                    Export
+                                                </th>
+                                                <th scope="col"
+                                                    class="px-3 py-3.5 text-sm font-semibold text-left text-gray-900">
                                                     Attendane
                                                 </th>
                                                 <th scope="col"
