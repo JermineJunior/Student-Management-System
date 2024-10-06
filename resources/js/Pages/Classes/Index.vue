@@ -1,9 +1,9 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link, useForm,usePage } from '@inertiajs/vue3';
-import CreateClass from './Partials/CreateClass.vue';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';import CreateClass from './Partials/CreateClass.vue';
+import Export from './Partials/Export.vue';
 import ClassRoom from './Partials/ClassRoom.vue';
-import { ref }  from 'vue';
+import { Head } from '@inertiajs/vue3';
+
 
 defineProps({
   classes: {
@@ -40,8 +40,9 @@ defineProps({
                             </p>
                         </div>
 
-                        <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                        <div class="mt-4 flex items-center space-x-2 m:ml-16 sm:flex-none">
                             <CreateClass />
+                            <Export :classes="classes.data"  />
                         </div>
                     </div>
 
@@ -70,10 +71,7 @@ defineProps({
                                                     class="px-3 py-3.5 text-sm font-semibold text-left text-gray-900">
                                                     No of Students
                                                 </th>
-                                                <th scope="col"
-                                                    class="px-3 py-3.5 text-sm font-semibold text-left text-gray-900">
-                                                    Export
-                                                </th>
+
                                                 <th scope="col"
                                                     class="px-3 py-3.5 text-sm font-semibold text-left text-gray-900">
                                                     Attendane

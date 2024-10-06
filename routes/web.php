@@ -39,7 +39,7 @@ Route::middleware("auth")->group(function () {
     Route::resource("/students", StudentController::class);
     Route::get('/export/class/{id}', function ($id) {
         return Excel::download(new StudentsExport($id), 'students.xlsx');
-    });
+    })->name('classes.export');
     //Teacher Routes
     Route::resource('/teachers', TeacherController::class);
     //Classes Route

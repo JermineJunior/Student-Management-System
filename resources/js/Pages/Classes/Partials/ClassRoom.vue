@@ -23,11 +23,7 @@ const editingForm = useForm({
     name: Class.name
 });
 
-const exportStudents = (classId) => {
-    if(confirm('Do you want to Export the ClassRoom Students')){
-        window.location.href = `/export/class/${classId}`
-    }
-}
+
 
 let editName = debounce(() => {
     editingForm.patch(`/classes/${Class.id}`, {
@@ -87,11 +83,6 @@ const deleteClass = (id) => {
         </td>
         <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
             {{ Class.students }}
-        </td>
-        <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-            <button @click="exportStudents(Class.id)" class="text-indigo-600 hover:text-indigo-800">
-                <svg class="size-7" viewBox="-1.44 -1.44 26.88 26.88" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path opacity="0.5" d="M4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12" stroke="#5e69a1" stroke-width="1.5" stroke-linecap="round"></path> <path d="M12 14L12 4M12 4L15 7M12 4L9 7" stroke="#5e69a1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-            </button>
         </td>
         <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
             <Link class="text-indigo-600 hover:text-indigo-800" :href="route('attendance.showForm', Class.id)">
