@@ -51,7 +51,7 @@ const closeModal = () => {
       <div class="p-6">
         <div class="col-span-6 sm:col-span-3">
             <label for="class_id"
-                class="block text-sm font-medium text-gray-700">Class</label>
+                class="block text-sm font-medium text-gray-700">ClassRoom</label>
             <select v-model="form.class_id" id="class_id"
                 class="block px-3 py-2 mt-1 w-full bg-white rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 :class="{
