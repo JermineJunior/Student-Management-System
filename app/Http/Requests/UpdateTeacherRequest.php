@@ -26,6 +26,7 @@ class UpdateTeacherRequest extends FormRequest
             'email' => ['required', 'email'],
             'phone' => ['required', 'string', 'min:9'],
             'date_of_recruit' => ['required', 'date'],
+            'base_salary'  => ['required' , 'string'],
             'specialty' => ['required', 'string', 'max:255'],
         ];
     }

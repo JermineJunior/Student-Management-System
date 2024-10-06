@@ -64,7 +64,7 @@ describe('Teachers Crud', function () {
             'email' => 'ali@example.com',
             'phone' => '01234567890',
             'date_of_recruit' => now(),
-            'base_salary'  => 40000,
+            'base_salary'  => "40000",
             'specialty' => 'Arabic'
         ]);
         $newTeacher = [
@@ -72,7 +72,7 @@ describe('Teachers Crud', function () {
             'email' => 'ali.eng@example.com',
             'phone' => '01234567890',
             'date_of_recruit' => now(),
-            'base_salary'  => 40000,
+            'base_salary'  => "50000",
             'specialty' => 'Arabic'
         ];
         $response = $this->signIn()->put('/teachers/' . $teacher->id, $newTeacher);

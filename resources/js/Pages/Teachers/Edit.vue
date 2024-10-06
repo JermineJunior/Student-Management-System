@@ -22,9 +22,9 @@ const form = useForm({
 });
 
 const submit = () => {
-  form.put(`/teachers/${teacher.data.id}`), {
-    preserveScroll: true,
-  }
+  form.put(route("teachers.update", teacher.data.id), {
+        preserveScroll: true,
+    });
 };
 </script>
 

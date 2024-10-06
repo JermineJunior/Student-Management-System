@@ -18,6 +18,7 @@ class TeacherFactory extends Factory
     public function definition(): array
     {
         return [
+            'school_id' => School::first()->id,
             'name' => fake()->name(),
             'email' => $this->faker->unique()->safeEmail,
             'phone' => fake()->phoneNumber(),
