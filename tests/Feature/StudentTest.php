@@ -24,10 +24,10 @@ describe('student crud', function () {
     });
 
     test('users can view student details in the index page', function () {
-    $school = School::factory()->create([
-        'name'  => 'school one',
-        'description'  => 'School Description'
-    ]);
+        $school = School::factory()->create([
+            'name'  => 'school one',
+            'description'  => 'School Description'
+        ]);
         $student = Student::factory()->create([
             'school_id'  => $school->id,
             'parent_id' =>  1,
@@ -40,6 +40,58 @@ describe('student crud', function () {
         $response->assertSee($student->name);
         $response->assertSee($student->email);
         $response->assertSee($student->parent->parent_name);
+    });
+
+    it('belongs to a school', function () {
+        $school = School::factory()->create([
+            'name'  => 'school one',
+            'description'  => 'School Description'
+        ]);
+        $classroom =  Classes::factory()->create();
+        $student = Student::factory()->create([
+            'school_id'  => $school->id,
+            'parent_id' =>  1,
+            'name' => 'john doe',
+            'email' => 'john@example.com',
+            'class_id' => $classroom->id,
+        ]);
+
+        expect($student->school->name)->toBe($school->name);
+    });
+
+    it('belongs to a classroom', function () {
+        $school = School::factory()->create([
+            'name'  => 'school one',
+            'description'  => 'School Description'
+        ]);
+        $classroom =  Classes::factory()->create();
+        $student = Student::factory()->create([
+            'school_id'  => $school->id,
+            'parent_id' =>  1,
+            'name' => 'john doe',
+            'email' => 'john@example.com',
+            'class_id' => $classroom->id,
+        ]);
+
+        expect($student->class->name)->toBe($classroom->name);
+    });
+
+    it('has a parent', function () {
+        $school = School::factory()->create([
+            'name'  => 'school one',
+            'description'  => 'School Description'
+        ]);
+        $classroom =  Classes::factory()->create();
+        $parent = Parents::factory()->create();
+        $student = Student::factory()->create([
+            'school_id'  => $school->id,
+            'parent_id' =>  $parent->id,
+            'name' => 'john doe',
+            'email' => 'john@example.com',
+            'class_id' => $classroom->id,
+        ]);
+
+        expect($student->parent->name)->toBe($parent->name);
     });
 
     test('authenticated users can see the create student page', function () {
@@ -71,7 +123,7 @@ describe('student crud', function () {
         $response->assertSessionHasNoErrors();
     });
 
-    test('authenticated users can modify students' , function () {
+    test('authenticated users can modify students', function () {
         $school = School::factory()->create([
             'name'  => 'school one',
             'description'  => 'School Description'
@@ -86,18 +138,18 @@ describe('student crud', function () {
             'parent_id' => $parent->id,
         ]);
 
-        $newStudent = [ 'name' => 'jack alison' ,  'class_id' => $classroom->id,  'email' => 'jac2@ex.com', ];
-        $updateResponse = $this->signIn()->put('/students/' . $student->id , $newStudent);
+        $newStudent = ['name' => 'jack alison',  'class_id' => $classroom->id,  'email' => 'jac2@ex.com',];
+        $updateResponse = $this->signIn()->put('/students/' . $student->id, $newStudent);
 
-        $updateResponse ->assertSessionHasNoErrors()
+        $updateResponse->assertSessionHasNoErrors()
             ->assertRedirect('/students');
         $this->assertDatabaseHas('students', [
-             'name' => 'jack alison',
-             'email' => 'jac2@ex.com',
+            'name' => 'jack alison',
+            'email' => 'jac2@ex.com',
         ]);
     });
 
-    test('authenticated users can delete students' , function(){
+    test('authenticated users can delete students', function () {
         $school = School::factory()->create([
             'name'  => 'school one',
             'description'  => 'School Description'
