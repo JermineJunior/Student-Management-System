@@ -4,7 +4,6 @@ use App\Models\Classes;
 use App\Models\School;
 
 describe('ClassRoom Test', function () {
-
     test('classes details is displayed', function () {
         $school = School::factory()->create([
             'name'  => 'school one',

@@ -165,7 +165,7 @@ const deleteStudent = (id) => {
                                                 </th>
                                                 <th scope="col"
                                                     class="px-3 py-3.5 text-sm font-semibold text-left text-gray-900">
-                                                    Created At
+                                                    Administered On
                                                 </th>
                                                 <th scope="col" class="relative py-3.5 pr-4 pl-3 sm:pr-6" />
                                             </tr>

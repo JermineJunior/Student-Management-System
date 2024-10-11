@@ -4,10 +4,8 @@ use App\Models\User;
 
 describe('profile test', function () {
     test('profile page is displayed', function () {
-        $user = User::factory()->create();
-
         $response = $this
-            ->actingAs($user)
+            ->signIn()
             ->get('/profile');
 
         $response->assertOk();

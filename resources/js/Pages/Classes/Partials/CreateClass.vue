@@ -50,7 +50,7 @@ const closeModal = () => {
           <InputLabel for="name" value="Name" class="sr-only" />
 
           <TextInput id="name" ref="nameInput" v-model="form.name" type="text" class="block mt-1 w-3/4"
-            placeholder="Class Name" />
+            placeholder="Class Name" required />
 
           <InputError :message="form.errors.name" class="mt-2" />
         </div>
